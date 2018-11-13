@@ -1,6 +1,6 @@
 <?php
 
-class Votings extends \Phalcon\Mvc\Model
+class VotingsAnswers extends \Phalcon\Mvc\Model
 {
     public $id;
 

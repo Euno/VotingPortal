@@ -32,6 +32,11 @@ class Votings extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->hasMany('id', 'Votes', 'voting_id');
-        $this->hasMany('id', 'VotingsAnswers', 'voting_id');
+        $this->hasMany('id', 'VotingsAnswers', 'voting_id', ['alias' => 'Answers']);
+    }
+
+    public function beforeCreate()
+    {
+        $this->add_date = time();
     }
 }

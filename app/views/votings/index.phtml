@@ -1,5 +1,5 @@
 
-<div ng-app="crm" ng-controller="orderOverview">
+<div>
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-15">
@@ -7,7 +7,7 @@
                 <button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Actions</button>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/index/addOrder">Add voting</a>
+                    <a class="dropdown-item" href="/votings/edit">Add voting</a>
                 </div>
 
             </div>
@@ -43,10 +43,10 @@
                                 <td><?=date("Y/m/d H:i:s", $v->add_date)?></td>
                                 <td><?=date("Y/m/d H:i:s", $v->end_date)?></td>
                                 <td>
-                                    <a href="/index/edit/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-warning" title="Edit voting"> <i class="fa fa-wrench"></i> </a>
-                                    <a href="/index/votes/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-success" title="View votes"> <i class="fa fa-eye"></i> </a>
+                                    <a href="/votings/edit/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-warning" title="Edit voting"> <i class="fa fa-wrench"></i> </a>
+                                    <a href="/votings/votes/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-success" title="View votes"> <i class="fa fa-eye"></i> </a>
                                     <?php if($v->getVotes()->count() == 0){ ?>
-                                    <a href="/index/delete/<?=$v->id?>" onclick="return confirm('Are you sure?'); return false;" class="btn waves-effect waves-light btn-sm btn-danger" title="Delete voting"> <i class="fa fa-times"></i> </a>
+                                    <a href="/votings/delete/<?=$v->id?>" onclick="return confirm('Are you sure?'); return false;" class="btn waves-effect waves-light btn-sm btn-danger" title="Delete voting"> <i class="fa fa-times"></i> </a>
                                     <?php } ?>
                                 </td>
                             </tr>

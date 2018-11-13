@@ -28,6 +28,7 @@ class ControllerBase extends Controller
             ->addJs('assets/js/waves.js')
             ->addJs('assets/js/jquery.nicescroll.js')
             ->addJs('assets/plugins/switchery/switchery.min.js')
+            ->addJs('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')
 
             ->addJs('assets/plugins/morris/morris.min.js')
             ->addJs('assets/plugins/raphael/raphael-min.js')

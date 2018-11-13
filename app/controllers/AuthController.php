@@ -49,7 +49,7 @@ class AuthController extends ControllerBase
                     $this->flash->success('Welcome ' . $user->firstname);
 
                     // Forward to the 'invoices' controller if the user is valid
-                    return $this->response->redirect( 'index/index');
+                    return $this->response->redirect( 'votings');
                     
                 }else{
                     $this->flash->error('Wrong email/password');
