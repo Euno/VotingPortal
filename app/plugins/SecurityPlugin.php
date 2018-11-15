@@ -40,9 +40,10 @@ class SecurityPlugin extends Plugin
             }
 
             //Public area resources
-            $publicResources = array(
-                'auth'    => array('index', 'start', 'end')
-            );
+            $publicResources = [
+                'auth'    => ['index', 'start', 'end'],
+                'vote'    => ['*'],
+            ];
 
             foreach ($publicResources as $resource => $actions) {
                 $acl->addResource(new Resource($resource), $actions);
@@ -87,10 +88,10 @@ class SecurityPlugin extends Plugin
         if($role == 'Guests') {
             $allowed = $acl->isAllowed($role, $controller, $action);
             if ($allowed != Acl::ALLOW) {
-                $dispatcher->forward(array(
+                $dispatcher->forward([
                     'controller' => 'auth',
                     'action' => 'index'
-                ));
+                ]);
                 $this->session->destroy();
                 return false;
             }
