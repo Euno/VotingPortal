@@ -8,30 +8,39 @@
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/css/vote_frontend.css" />
 
         <script src="/assets/js/jquery.min.js"></script>
         <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
     </head>
-    <body>
+    <body id="votingportal">
         <div class="container">
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <img src="/assets/images/votingportal/voting-portal-euno-logo.png" alt="EUNO logo" class="logo" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <img src="/assets/images/votingportal/voting-portal-subtitle.png" alt="EUNO voting portal subtitle" class="subtitle" />
+                </div>
+            </div>
+
             <form action="/index/doVote" method="post">
                 <div class="row">
-                    <div class="col-md-12">
-
-                        <h1><?=$voting->title?></h1>
-
-                        <!--<pre>
-                            <?php var_dump($voting->toArray()); ?>
-                        </pre>-->
-
+                    <div class="col-md-10 col-md-offset-1">
+                        <h1 class="voteTitle"><?=$voting->title?></h1>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-10 col-md-offset-1">
                         <div class="form-group">
                             <label for="answer">Your vote</label>
-                            <select name="answer" id="answer" class="form-control">
+                            <select name="answer" id="answer" class="form-control answersSelect">
                                 <?php foreach ($answers as $answer){ ?>
                                     <option value="<?=$answer->answer?>"><?=$answer->answer?></option>
                                 <?php } ?>
@@ -39,28 +48,64 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Masternode IP address + port</label>
-                            <select name="addressip[]" class="form-control ipSelect">
-                                <?php foreach ($nodes as $node => $address){ ?>
-                                    <option value="<?=$node?>"><?=$node?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Masternode address</label>
-                            <input type="text" name="address[]" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
-                        </div>
+                    <div class="col-md-12">
+                        <hr />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Signed message</label>
-                            <textarea name="signed_message[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
+                </div>
+
+                <div class="votes">
+                    <div class="voteRow">
+                        <div class="row">
+
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Masternode IP address + port</label>
+                                            <select name="addressip[]" class="form-control ipSelect">
+                                                <?php foreach ($nodes as $node => $address){ ?>
+                                                    <option value="<?=$node?>"><?=$node?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Masternode address</label>
+                                            <input type="text" name="address[]" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Signed message</label>
+                                            <textarea name="signed_message[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr />
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <button class="btn btn-primary btn-block addVote">Add vote</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 text-center">
+                        <button class="btn btn-primary proceedVote">Proceed vote</button>
+                    </div>
+                </div>
+
             </form>
         </div>
 
@@ -69,10 +114,26 @@
                 var nodes = <?=json_encode($nodes)?>;
                 $('.ipSelect').select2().on('change', function () {
                     var val = $(this).val();
-                    console.log('efewf');
 
                     $('input.address').val(nodes[val]);
                 });
+
+                $('.addVote').on('click', function(e){
+                    e.preventDefault();
+
+                    var clone = $('.votes').find('.voteRow').first().clone();
+
+                    clone.find('input').val();
+                    clone.find('textarea').val();
+                    clone.find('.select2-container').remove();
+                    clone.find('select').removeClass('select2-hidden-accessible');
+
+                    $('.votes').append(clone);
+
+                    $('.votes').find('.voteRow').last().find('select').select2();
+                });
+
+                $('.answersSelect').select2({minimumResultsForSearch: -1});
             });
         </script>
     </body>
