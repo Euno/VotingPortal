@@ -5,7 +5,7 @@ class VotingsController extends ControllerBase
 {
     public function indexAction()
     {
-        $votings = Votings::find();
+        $votings = Votings::find('round = 1');
 
         $this->view->votings = $votings;
     }
@@ -85,6 +85,30 @@ class VotingsController extends ControllerBase
         }
 
         return $this->response->redirect('/');
+    }
+
+    public function addSecondAction($voting_id = 0 )
+    {
+        $voting = Votings::findFirst($voting_id);
+
+        $second = new Votings();
+        $second->title = $voting->title.' (Final voting)';
+        $second->url = $voting->url.'-final-voting';
+        $second->parent = $voting_id;
+        $second->round = 2;
+        $second->create();
+
+        $answers = $voting->getAnswers();
+
+        foreach ($answers as $a)
+        {
+            $nAnswer = new VotingsAnswers();
+            $nAnswer->voting_id = $second->id;
+            $nAnswer->answer = $a->answer;
+            $nAnswer->create();
+        }
+
+        return $this->response->redirect('votings/edit/'.$second->id);
     }
 
     public function votesAction($voting_id = 0)

@@ -1,0 +1,8 @@
+.secondVotingRow{
+    text-align: right;
+    background-color: #bfccc6;
+}
+
+.noTextAlign{
+    text-align: left !important;
+}

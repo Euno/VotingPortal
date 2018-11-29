@@ -29,9 +29,10 @@
                             </th>
                             <th>Vote count</th>
                             <th>Votes confirmed</th>
-                            <th>Voting added on</th>
                             <th>Voting expires</th>
                             <th></th>
+                            <th>Second round</th>
+                            <th>Reports</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -40,7 +41,6 @@
                                 <td><?=$v->title?></td>
                                 <td><?=$v->getVotes()->count()?></td>
                                 <td><?=$v->getVotes('confirmed = 1')->count()?></td>
-                                <td><?=date("Y/m/d H:i:s", $v->add_date)?></td>
                                 <td><?=date("Y/m/d H:i:s", $v->end_date)?></td>
                                 <td>
                                     <a href="/votings/edit/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-warning" title="Edit voting"> <i class="fa fa-wrench"></i> </a>
@@ -49,7 +49,31 @@
                                     <a href="/votings/delete/<?=$v->id?>" onclick="return confirm('Are you sure?'); return false;" class="btn waves-effect waves-light btn-sm btn-danger" title="Delete voting"> <i class="fa fa-times"></i> </a>
                                     <?php } ?>
                                 </td>
+                                <td>
+                                    <?php if(!$v->getSecondRound()){ ?>
+                                        <a href="/votings/addSecond/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-success" title="Create second voting" onclick="return confirm('Are you sure?'); return false;"> <i class="fa fa-plus"></i> </a>
+                                    <?php } ?>
+                                </td>
+                                <td></td>
                             </tr>
+
+                            <?php if($second = $v->getSecondRound()){ ?>
+                                <tr>
+                                    <td class="secondVotingRow"><?=$second->title?></td>
+                                    <td class="secondVotingRow noTextAlign"><?=$second->getVotes()->count()?></td>
+                                    <td class="secondVotingRow noTextAlign"><?=$second->getVotes('confirmed = 1')->count()?></td>
+                                    <td class="secondVotingRow noTextAlign"><?=date("Y/m/d H:i:s", $second->end_date)?></td>
+                                    <td class="secondVotingRow noTextAlign">
+                                        <a href="/votings/edit/<?=$second->id?>" class="btn waves-effect waves-light btn-sm btn-warning" title="Edit voting"> <i class="fa fa-wrench"></i> </a>
+                                        <a href="/votings/votes/<?=$second->id?>" class="btn waves-effect waves-light btn-sm btn-success" title="View votes"> <i class="fa fa-eye"></i> </a>
+                                        <?php if($second->getVotes()->count() == 0){ ?>
+                                            <a href="/votings/delete/<?=$second->id?>" onclick="return confirm('Are you sure?'); return false;" class="btn waves-effect waves-light btn-sm btn-danger" title="Delete voting"> <i class="fa fa-times"></i> </a>
+                                        <?php } ?>
+                                    </td>
+                                    <td class="secondVotingRow noTextAlign"></td>
+                                    <td class="secondVotingRow noTextAlign"></td>
+                                </tr>
+                            <?php } ?>
                         <?php } ?>
                         </tbody>
                     </table>
@@ -60,5 +84,3 @@
     </div>
     <!-- end row -->
 </div>
-
-<script src="https://cdn.datatables.net/rowgroup/1.0.2/js/dataTables.rowGroup.min.js" type="application/javascript"></script>

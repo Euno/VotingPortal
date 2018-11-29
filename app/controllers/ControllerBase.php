@@ -18,6 +18,7 @@ class ControllerBase extends Controller
             ->addCss('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')
             ->addCss('assets/plugins/select2/css/select2.css')
             ->addCss('assets/css/style.css')
+            ->addCss('assets/css/custom.css')
             ;
 
         // And some local JavaScript resources
