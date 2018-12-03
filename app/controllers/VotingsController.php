@@ -157,4 +157,29 @@ class VotingsController extends ControllerBase
 
         return $this->response->redirect('votings/votes/'.$voting->id);
     }
+
+    public function reportAction($voting_id = 0)
+    {
+        $this->view->disable();
+
+        $voting = Votings::findFirst($voting_id);
+
+        if(!$voting)
+        {
+            return $this->response->redirect('votings');
+        }
+
+        $mpdf = new \Mpdf\Mpdf();
+
+        $view = new View();
+        $view->disableLevel(
+            View::LEVEL_MAIN_LAYOUT
+        );
+        $view->setViewsDir(__DIR__ . '/../../app/views/');
+
+        $html = $view->getRender('votings', 'renderPdf', []);
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('', "I");
+    }
 }
