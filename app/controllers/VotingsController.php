@@ -179,7 +179,15 @@ class VotingsController extends ControllerBase
 
         $html = $view->getRender('votings', 'renderPdf', []);
 
+        $mpdf->showImageErrors = true;
         $mpdf->WriteHTML($html);
         $mpdf->Output('', "I");
+    }
+
+    public function reportBarsAction($voting_id = 0)
+    {
+        $chart = new Barchart();
+        echo $chart->draw();
+        exit;
     }
 }
