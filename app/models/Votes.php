@@ -37,4 +37,17 @@ class Votes extends \Phalcon\Mvc\Model
     {
         $this->belongsTo('voting_id', 'Votings', 'id', ['alias' => 'Voting']);
     }
+
+    public function checkHash()
+    {
+        $config = [
+            'user' => '',
+            'pass' => '',
+            'host' => '',
+            'port' => ''
+        ];
+        $connect_string = sprintf('http://%s:%s@%s:%s/', $config['user'], $config['pass'], $config['host'], $config['port']);
+
+        $coind = new jsonRPCClient($connect_string);
+    }
 }

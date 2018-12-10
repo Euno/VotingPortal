@@ -10,8 +10,8 @@ return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
-        'username'    => 'voting_user',
-        'password'    => '!dGff34##%tFD1',
+        'username'    => 'euno_user',
+        'password'    => '&2*dspnGM0#G7mQ8$A57',
         'dbname'      => 'euno_voting',
         'charset'     => 'utf8'
     ],

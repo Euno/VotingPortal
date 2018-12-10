@@ -32,6 +32,7 @@
                             <th>Answer</th>
                             <th>Signed message</th>
                             <th>Vote date</th>
+                            <th>Signed message check</th>
                             <th>Vote confirmed</th>
                             <th></th>
                         </tr>
@@ -46,6 +47,11 @@
                                     <a href="javascript:void(0)" class="openSignedMessageModal" data-msg="<?=$v->signed_msg?>">View signed message</a>
                                 </td>
                                 <td><?=date("Y/m/d H:i:s", $v->date)?></td>
+                                <td>
+                                    <?php
+                                    var_dump($v->checkHash());
+                                    ?>
+                                </td>
                                 <td>
                                     <?php if($v->confirmed == 0){ ?>
                                         <span class="label label-default" title="Vote not judged yet">-</span>
