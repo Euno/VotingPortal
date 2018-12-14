@@ -40,14 +40,10 @@ class Votes extends \Phalcon\Mvc\Model
 
     public function checkHash()
     {
-        $config = [
-            'user' => '',
-            'pass' => '',
-            'host' => '',
-            'port' => ''
-        ];
-        $connect_string = sprintf('http://%s:%s@%s:%s/', $config['user'], $config['pass'], $config['host'], $config['port']);
-
+        $config = $this->getDI()->get('config');
+        $connect_string = sprintf('http://%s:%s@%s:%s/', $config->eunod->user, $config->eunod->pass, $config->eunod->host, $config->eunod->port);
         $coind = new jsonRPCClient($connect_string);
+
+        return $coind->verifymessage($this->masternode_address, $this->signed_msg, $this->answer);
     }
 }

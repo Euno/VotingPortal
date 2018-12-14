@@ -26,5 +26,11 @@ return new \Phalcon\Config([
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => 'http://votingportal.vdwal.it/',
     ],
-    'env' => 'dev'
+    'env' => 'dev',
+    'eunod' => [
+        'user' => getenv('RPCUSER'),
+        'pass' => getenv('RPCPASS'),
+        'host' => getenv('RPCHOST'),
+        'port' => getenv('RPCPORT')
+    ]
 ]);

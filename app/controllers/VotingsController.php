@@ -84,7 +84,7 @@ class VotingsController extends ControllerBase
             }
         }
 
-        return $this->response->redirect('/');
+        return $this->response->redirect('/votings');
     }
 
     public function addSecondAction($voting_id = 0 )

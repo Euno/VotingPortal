@@ -21,6 +21,12 @@
         <div class="col-xs-12 col-lg-12">
             <div class="card-box">
 
+                <?php if(!$wallet_status){ ?>
+                    <div class="alert alert-danger" role="alert">
+                        Can't connect to the EUNO wallet. Please validate the signed messages manually!
+                    </div>
+                <?php } ?>
+
                 <div class="table-responsive">
                     <table id="datatable" class="table table-striped table-bordered m-b-0">
                         <thead>
@@ -49,8 +55,15 @@
                                 <td><?=date("Y/m/d H:i:s", $v->date)?></td>
                                 <td>
                                     <?php
-                                    var_dump($v->checkHash());
-                                    ?>
+                                    if($v->checkHash() !== 'error'){ ?>
+                                        <span class="label label-success" title="Signed message valid">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                    <?php }else{ ?>
+                                        <span class="label label-danger" title="Signed message invalid">
+                                            <i class="fa fa-times"></i>
+                                        </span>
+                                    <?php } ?>
                                 </td>
                                 <td>
                                     <?php if($v->confirmed == 0){ ?>

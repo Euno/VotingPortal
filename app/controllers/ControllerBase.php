@@ -46,6 +46,22 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')
             ;
 
+
+        $connect_string = sprintf('http://%s:%s@%s:%s/', $this->config->eunod->user, $this->config->eunod->pass, $this->config->eunod->host, $this->config->eunod->port);
+        $coind = new jsonRPCClient($connect_string);
+
+        $info = $coind->getinfo();
+
+        $version = 'Offline';
+        $status = false;
+        if(isset($info['version']))
+        {
+            $status = true;
+            $version = $info['version'];
+        }
+
+        $this->view->wallet_status = $status;
+        $this->view->wallet_version = $version;
     }
 
 }
