@@ -9,10 +9,10 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost',
-        'username'    => 'euno_user',
-        'password'    => '&2*dspnGM0#G7mQ8$A57',
-        'dbname'      => 'euno_voting',
+        'host'        => getenv('DBHOST'),
+        'username'    => getenv('DBUSER'),
+        'password'    => getenv('DBPASS'),
+        'dbname'      => getenv('DBNAME'),
         'charset'     => 'utf8'
     ],
     'application' => [
