@@ -9,10 +9,10 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost',
-        'username'    => 'voting_user',
-        'password'    => '!dGff34##%tFD1',
-        'dbname'      => 'euno_voting',
+        'host'        => getenv('DBHOST'),
+        'username'    => getenv('DBUSER'),
+        'password'    => getenv('DBPASS'),
+        'dbname'      => getenv('DBNAME'),
         'charset'     => 'utf8'
     ],
     'application' => [
@@ -24,7 +24,13 @@ return new \Phalcon\Config([
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
-        'baseUri'        => 'https://votingportal.euno.co/',
+        'baseUri'        => 'https://voting.euno.co/',
     ],
-    'env' => 'production'
+    'env' => 'production',
+    'eunod' => [
+        'user' => getenv('RPCUSER'),
+        'pass' => getenv('RPCPASS'),
+        'host' => getenv('RPCHOST'),
+        'port' => getenv('RPCPORT')
+    ]
 ]);

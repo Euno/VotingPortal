@@ -24,7 +24,7 @@ return new \Phalcon\Config([
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
-        'baseUri'        => 'http://votingportal.vdwal.it/',
+        'baseUri'        => 'https://votingportal.vdwal.it/',
     ],
     'env' => 'dev',
     'eunod' => [

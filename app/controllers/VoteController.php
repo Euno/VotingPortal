@@ -8,7 +8,12 @@ class VoteController extends Controller
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
 
-        $voting = Votings::findFirst('url = "'.addslashes($url).'"');
+        $voting = Votings::findFirst([
+            'url = "'.addslashes($url).'" AND start_date <= '.time().' AND end_date >= '.time()
+        ]);
+
+        if(!$voting)
+            exit('No voting found... Please try again later!');
 
         $this->view->voting = $voting;
         $this->view->answers = $voting->getAnswers();

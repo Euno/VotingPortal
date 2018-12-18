@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="form-group">
-                            <label for="answer">Your vote</label>
+                            <label for="answer">Your vote <span style="font-size: 12px;">( Sign your answer exactly as shown in this dropdown )</span></label>
                             <select name="answer" id="answer" class="form-control answersSelect">
                                 <?php foreach ($answers as $answer){ ?>
                                     <option value="<?=$answer->answer?>"><?=$answer->answer?></option>
