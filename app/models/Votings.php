@@ -14,6 +14,8 @@ class Votings extends \Phalcon\Mvc\Model
 
     public $add_date;
 
+    public $start_date;
+
     public $end_date;
 
     public $active;

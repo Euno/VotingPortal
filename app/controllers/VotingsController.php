@@ -53,6 +53,7 @@ class VotingsController extends ControllerBase
 
             $voting->title = $post['title'];
             $voting->url = $post['url'];
+            $voting->start_date = strtotime($post['start_date']);
             $voting->end_date = strtotime($post['end_date']);
             $voting->save();
 

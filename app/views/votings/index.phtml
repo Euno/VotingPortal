@@ -29,6 +29,7 @@
                             </th>
                             <th>Vote count</th>
                             <th>Votes confirmed</th>
+                            <th>Voting start</th>
                             <th>Voting expires</th>
                             <th></th>
                             <th>Second round</th>
@@ -41,6 +42,7 @@
                                 <td><?=$v->title?></td>
                                 <td><?=$v->getVotes()->count()?></td>
                                 <td><?=$v->getVotes('confirmed = 1')->count()?></td>
+                                <td><?=date("Y/m/d H:i:s", $v->start_date)?></td>
                                 <td><?=date("Y/m/d H:i:s", $v->end_date)?></td>
                                 <td>
                                     <a href="/votings/edit/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-warning" title="Edit voting"> <i class="fa fa-wrench"></i> </a>
@@ -62,6 +64,7 @@
                                     <td class="secondVotingRow"><?=$second->title?></td>
                                     <td class="secondVotingRow noTextAlign"><?=$second->getVotes()->count()?></td>
                                     <td class="secondVotingRow noTextAlign"><?=$second->getVotes('confirmed = 1')->count()?></td>
+                                    <td class="secondVotingRow noTextAlign"><?=date("Y/m/d H:i:s", $second->start_date)?></td>
                                     <td class="secondVotingRow noTextAlign"><?=date("Y/m/d H:i:s", $second->end_date)?></td>
                                     <td class="secondVotingRow noTextAlign">
                                         <a href="/votings/edit/<?=$second->id?>" class="btn waves-effect waves-light btn-sm btn-warning" title="Edit voting"> <i class="fa fa-wrench"></i> </a>
