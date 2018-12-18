@@ -119,8 +119,38 @@ class VotingsController extends ControllerBase
         if(!$voting)
             return $this->response->redirect('votings');
 
+        $answers = $voting->getAnswers();
+
         $this->view->voting = $voting;
         $this->view->votes = $voting->getVotes();
+
+        $totalConfirmedVotes = $voting->getVotes([
+            'confirmed = 1'
+        ])->count();
+
+        $results = $voting->getVotes([
+            'confirmed = 1',
+            'columns' => 'answer, count(*) as count',
+            'group' => 'answer'
+        ]);
+
+        $resultsFormatted = [];
+        foreach ($answers as $answer)
+        {
+            $resultsFormatted[$answer->answer] = 0;
+        }
+
+        //print '<pre>';
+        //print_r($results->toArray());
+        //exit;
+
+        foreach ($results as $result)
+        {
+            $resultsFormatted[$result->answer] = $result->count;
+        }
+
+        $this->view->results = $resultsFormatted;
+        $this->view->totalConfirmedVotes = $totalConfirmedVotes;
     }
 
     public function approveAction($voting_id = 0, $vote_id = 0)
