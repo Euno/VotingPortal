@@ -80,6 +80,7 @@
                                         <div class="form-group">
                                             <label>Signed message</label>
                                             <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
+                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message is not valid and will not be confirmed by the EUNO team. Please re-check your vote!</span>
                                         </div>
                                     </div>
                                 </div>
@@ -121,8 +122,8 @@
 
                     var clone = $('.votes').find('.voteRow').first().clone();
 
-                    clone.find('input').val();
-                    clone.find('textarea').val();
+                    clone.find('input').val('');
+                    clone.find('textarea').val('');
                     clone.find('.select2-container').remove();
                     clone.find('select').removeClass('select2-hidden-accessible');
 
@@ -135,6 +136,12 @@
 
                 $('.answersSelect').select2({minimumResultsForSearch: -1});
 
+                $('select[name="answer"]').on('change', function(){
+                    $('.voteRow').each(function(){
+                        checkSignedMessage($(this));
+                    });
+                });
+
                 function initEvents(){
                     $('.voteRow').each(function(){
                         var voteRow = $(this);
@@ -142,11 +149,50 @@
                         voteRow.find('.ipSelect').on('change', function () {
                             var val = $(this).val();
 
-                            voteRow.find('input.address').val(nodes[val]);
+                            voteRow.find('input.address').val(nodes[val]).change();
+                        });
+
+                        voteRow.find('textarea, input.address').off('change').on('change', function () {
+                            checkSignedMessage(voteRow);
                         });
                     });
                 }
                 initEvents();
+
+                function checkSignedMessage(voteRow){
+                    var val = voteRow.find('textarea').val();
+                    var address = voteRow.find('input.address').val();
+                    var answer = $('select[name="answer"]').val();
+
+                    if($.trim(val) && $.trim(address) && $.trim(answer)) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/vote/signedMsgCheck',
+                            data: {
+                                signedMessage: val,
+                                address: address,
+                                answer: answer
+                            },
+                            dataType: 'JSON',
+                            success: function(res){
+                                var span = voteRow.find('span.invalidSignedMsgWarning');
+                                switch (res.status){
+                                    case true:
+                                        span.hide();
+                                        break;
+
+                                    case false:
+                                        span.show();
+                                        break;
+
+                                    case "NO_CONNECTION":
+                                        span.hide();
+                                        break;
+                                }
+                            }
+                        });
+                    }
+                }
             });
         </script>
     </body>

@@ -69,6 +69,41 @@ class VoteController extends Controller
         }
     }
 
+    public function signedMsgCheckAction()
+    {
+        $this->view->disable();
+
+        if( $this->request->isPost() )
+        {
+            $post = $this->request->getPost();
+
+            $connect_string = sprintf('http://%s:%s@%s:%s/', $this->config->eunod->user, $this->config->eunod->pass, $this->config->eunod->host, $this->config->eunod->port);
+            $coind = new jsonRPCClient($connect_string);
+
+            $resultd = $coind->verifymessage($post['address'], $post['signedMessage'], $post['answer']);
+
+            $result = false;
+            switch(true)
+            {
+                case ($resultd === true):
+                    $result = true;
+                    break;
+
+                case ($resultd === false):
+                    $result = false;
+                    break;
+
+                case ($resultd === "error"):
+                    $result = 'NO_CONNECTION';
+                    break;
+            }
+
+            echo json_encode([
+                "status" => $result
+            ]);
+        }
+    }
+
     public function notFoundAction()
     {
         http_response_code(404);
