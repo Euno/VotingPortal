@@ -9,6 +9,7 @@
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/css/vote_frontend.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
 
         <script src="/assets/js/jquery.min.js"></script>
         <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -79,6 +80,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Signed message</label>
+                                            <div class="pull-right">
+                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
                                             <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
                                             <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message is not valid and will not be confirmed by the EUNO team. Please re-check your vote!</span>
                                         </div>
@@ -155,7 +161,18 @@
                         voteRow.find('textarea, input.address').off('change').on('change', function () {
                             checkSignedMessage(voteRow);
                         });
+
+                        voteRow.find('.remove-vote').off('click').on('click', function () {
+                            voteRow.remove();
+                            initEvents();
+                        });
                     });
+
+                    if( $('.voteRow').length > 1 ) {
+                        $('.remove-vote').show();
+                    } else {
+                        $('.remove-vote').hide();
+                    }
                 }
                 initEvents();
 
