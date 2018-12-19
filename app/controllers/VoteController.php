@@ -18,11 +18,30 @@ class VoteController extends Controller
         $this->view->voting = $voting;
         $this->view->answers = $voting->getAnswers();
 
+        $used_addresses = $voting->getVotes([
+            'confirmed IN (0, 1)',
+        ]);
+
+        $used_addresses_flat = [];
+        foreach ($used_addresses as $ua)
+        {
+            if(!in_array($ua->masternode_address, $used_addresses_flat))
+                $used_addresses_flat[] = $ua->masternode_address;
+        }
+
         $nodes = file_get_contents('https://explorer.euno.co/api/getmasternodes');
 
         if($nodes)
         {
             $nodes = json_decode($nodes, true);
+
+            foreach ($nodes as $ip => $address)
+            {
+                if(in_array($address, $used_addresses_flat))
+                {
+                    unset($nodes[$ip]);
+                }
+            }
         }
 
         $this->view->nodes = $nodes;
