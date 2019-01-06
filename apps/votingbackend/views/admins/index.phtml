@@ -1,0 +1,57 @@
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="btn-group pull-right m-t-15">
+            <button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light"
+                    data-toggle="dropdown" aria-expanded="false">Opties</button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/admins/edit">Admin toevoegen</a>
+            </div>
+
+        </div>
+        <h4 class="page-title">Administrators</h4>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-lg-12">
+        <div class="card-box">
+
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-bordered dataTable m-b-0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach( $admins as $a ){ ?>
+                        <tr>
+                            <td><?=$a->name?></td>
+                            <td><?=$a->username?></td>
+                            <td>
+                                <button class="btn <?=($a->active == 1) ? 'btn-success' : 'btn-danger'?> waves-effect waves-light btn-sm">
+                                    <?=($a->active == 1) ? 'Active' : 'Inactive'?>
+                                </button>
+                            </td>
+                            <td>
+                                <a href="/admins/edit/<?=$a->id?>" class="btn waves-effect waves-light btn-sm btn-warning"> <i class="fa fa-wrench"></i> </a>
+                                <a href="/admins/delete/<?=$a->id?>" onclick="return confirm('Are you sure?'); return false" class="btn waves-effect waves-light btn-sm btn-danger"> <i class="fa fa-times"></i> </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div><!-- end col-->
+
+
+</div>
+<!-- end row -->
