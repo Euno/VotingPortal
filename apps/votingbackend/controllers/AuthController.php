@@ -42,7 +42,7 @@ class AuthController extends ControllerBase
                 if ($this->security->checkHash($password, $user->password)) {
                     $this->_registerSession($user);
 
-                    $this->flash->success('Welcome ' . $user->firstname);
+                    $this->flash->success('Welcome ' . $user->name);
 
                     // Forward to the 'invoices' controller if the user is valid
                     return $this->response->redirect( 'votings');
