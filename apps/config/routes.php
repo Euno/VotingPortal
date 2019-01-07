@@ -8,7 +8,7 @@ $router->setDefaultModule("votingfrontend");
 /*
  * Voting Frontend.
  */
-$router->add("/vote/:params", array(
+$router->add("/:params", array(
     'module' => 'votingfrontend',
     'controller' => 'vote',
     'action' => 'index',
