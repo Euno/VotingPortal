@@ -144,10 +144,6 @@ class VotingsController extends ControllerBase
             $resultsFormatted[$answer->answer] = 0;
         }
 
-        //print '<pre>';
-        //print_r($results->toArray());
-        //exit;
-
         foreach ($results as $result)
         {
             $resultsFormatted[$result->answer] = $result->count;
@@ -204,15 +200,46 @@ class VotingsController extends ControllerBase
             return $this->response->redirect('votings');
         }
 
+        $answers = $voting->getAnswers();
+
+        $totalConfirmedVotes = $voting->getVotes([
+            'confirmed = 1'
+        ])->count();
+
+        $results = $voting->getVotes([
+            'confirmed = 1',
+            'columns' => 'answer, count(*) as count',
+            'group' => 'answer'
+        ]);
+
+        $resultsFormatted = [];
+        foreach ($answers as $answer)
+        {
+            $resultsFormatted[$answer->answer] = 0;
+        }
+
+        foreach ($results as $result)
+        {
+            $resultsFormatted[$result->answer] = $result->count;
+        }
+
+        $pdfData = [];
+
+        krsort($resultsFormatted);
+
+        $pdfData['voting'] = $voting;
+        $pdfData['results'] = $resultsFormatted;
+        $pdfData['totalConfirmedVotes'] = $totalConfirmedVotes;
+
         $mpdf = new \Mpdf\Mpdf();
 
         $view = new View();
         $view->disableLevel(
             View::LEVEL_MAIN_LAYOUT
         );
-        $view->setViewsDir(__DIR__ . '/../../app/views/');
+        $view->setViewsDir(__DIR__ . '/../views/');
 
-        $html = $view->getRender('votings', 'renderPdf', []);
+        $html = $view->getRender('votings', 'renderPdf', $pdfData);
 
         $mpdf->showImageErrors = true;
         $mpdf->WriteHTML($html);
