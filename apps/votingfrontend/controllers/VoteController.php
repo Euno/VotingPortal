@@ -1,6 +1,7 @@
 <?php
 namespace EunoVoting\VotingFrontend\Controllers;
 
+use EunoVoting\Common\Libraries\jsonRPCClient;
 use EunoVoting\Common\Models\Votes;
 use EunoVoting\Common\Models\Votings;
 use Phalcon\Mvc\View;
@@ -88,7 +89,7 @@ class VoteController extends Controller
                 $voteModel->create();
             }
 
-            return $this->response->redirect('vote/thankyou/'.$url);
+            return $this->response->redirect('thankyou/'.$url);
         }
     }
 
@@ -112,12 +113,8 @@ class VoteController extends Controller
                     $result = true;
                     break;
 
-                case ($resultd === false):
+                case ($resultd === false || $resultd === "error"):
                     $result = false;
-                    break;
-
-                case ($resultd === "error"):
-                    $result = 'NO_CONNECTION';
                     break;
             }
 
@@ -125,11 +122,6 @@ class VoteController extends Controller
                 "status" => $result
             ]);
         }
-    }
-
-    public function notFoundAction()
-    {
-        http_response_code(404);
     }
 
     public function thankyouAction($url = '')

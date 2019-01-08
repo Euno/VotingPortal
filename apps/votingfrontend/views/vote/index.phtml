@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Euno Governance Voting Portal - <?=$voting->title?></title>
-        <meta name="author" content="A.J. van der Wal">
+        <meta name="author" content="@arrie1992">
 
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
@@ -16,6 +16,7 @@
         <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
     </head>
     <body id="votingportal">
+
         <div class="container">
 
             <div class="row">
@@ -86,7 +87,7 @@
                                                 </a>
                                             </div>
                                             <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
-                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message is not valid and will not be confirmed by the EUNO team. Please re-check your vote!</span>
+                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message couldn't be validated and may not be confirmed by the EUNO team. Please re-check your vote!</span>
                                         </div>
                                     </div>
                                 </div>
@@ -132,6 +133,7 @@
                     clone.find('textarea').val('');
                     clone.find('.select2-container').remove();
                     clone.find('select').removeClass('select2-hidden-accessible');
+                    clone.find('span.invalidSignedMsgWarning').hide();
 
                     $('.votes').append(clone);
 
@@ -200,10 +202,6 @@
 
                                     case false:
                                         span.show();
-                                        break;
-
-                                    case "NO_CONNECTION":
-                                        span.hide();
                                         break;
                                 }
                             }
