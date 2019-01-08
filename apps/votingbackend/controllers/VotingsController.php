@@ -1,6 +1,7 @@
 <?php
 namespace EunoVoting\VotingBackend\Controllers;
 
+use EunoVoting\Common\Models\Votes;
 use EunoVoting\Common\Models\Votings;
 use EunoVoting\Common\Models\VotingsAnswers;
 use Phalcon\Mvc\View;

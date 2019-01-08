@@ -2,16 +2,20 @@
 <div>
     <div class="row">
         <div class="col-sm-12">
+
             <div class="btn-group pull-right m-t-15">
 
+                <a href="/votings" class="btn btn-secondary">Back to votings</a>
+
+                <?php if($totalConfirmedVotes > 0){ ?>
                 <button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Actions</button>
 
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/votings/report/<?=$voting->id?>" target="_blank">Create report</a>
                 </div>
-
+                <?php } ?>
             </div>
-            
+
             <h4 class="page-title">Votes in voting <em>"<?=$voting->title?>"</em></h4>
         </div>
     </div>
@@ -34,7 +38,7 @@
                             <?php foreach ($results as $answer => $total_votes) { ?>
                                 <tr>
                                     <td><?=$answer?></td>
-                                    <td><?=number_format((($total_votes/$totalConfirmedVotes)) * 100, 0)?>% (<?=$total_votes?>)</td>
+                                    <td><?=($totalConfirmedVotes > 0 ? number_format((($total_votes/$totalConfirmedVotes)) * 100, 0) : 0)?>% (<?=$total_votes?>)</td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -121,11 +125,11 @@
                                 </td>
                                 <td>
                                     <?php if($v->confirmed == 0 || $v->confirmed == 2){ ?>
-                                    <a href="/votings/approve/<?=$voting->id?>/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-success" title="Approve vote"> <i class="fa fa-check"></i> </a>
+                                    <a href="/votings/approve/<?=$voting->id?>/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-success" title="Approve vote" onclick="return confirm('Are you sure?'); return false;"> <i class="fa fa-check"></i> </a>
                                     <?php } ?>
 
                                     <?php if($v->confirmed == 0 || $v->confirmed == 1){ ?>
-                                    <a href="/votings/decline/<?=$voting->id?>/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-danger" title="Decline vote"> <i class="fa fa-times"></i> </a>
+                                    <a href="/votings/decline/<?=$voting->id?>/<?=$v->id?>" class="btn waves-effect waves-light btn-sm btn-danger" title="Decline vote" onclick="return confirm('Are you sure?'); return false;"> <i class="fa fa-times"></i> </a>
                                     <?php } ?>
                                 </td>
                             </tr>
