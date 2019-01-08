@@ -96,7 +96,7 @@
                                 <td><?=date("Y/m/d H:i:s", $v->date)?></td>
                                 <td>
                                     <?php
-                                    if($v->checkHash() !== 'error'){ ?>
+                                    if($v->checkHash() !== 'error' && $v->checkHash() !== false){ ?>
                                         <span class="label label-success" title="Signed message valid">
                                             <i class="fa fa-check"></i>
                                         </span>
