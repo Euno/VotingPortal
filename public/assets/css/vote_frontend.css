@@ -25,10 +25,16 @@ body{
     margin-top: 0px;
 }
 
+#votingportal blockquote{
+    color: #FFF !important;
+    font-size: 16px !important;
+    margin-bottom: 10px;
+}
+
 #votingportal .voteTitle{
     text-transform: uppercase;
     color: #FFF;
-    font-size: 28px;
+    font-size: 26px;
     margin-bottom: 50px;
 }
 
@@ -67,6 +73,26 @@ body{
 .select2-container--default .select2-selection--single{
     border-radius: 0 !important;
     border: 1px solid #0597F2 !important;
+}
+
+.mobileDeviceModal{
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: #000000;
+    background: -moz-linear-gradient(top, #151848 1%, #070a1c 75%, #000000 100%);
+    background: -webkit-linear-gradient(top, #151848 1%,#070a1c 75%,#000000 100%);
+    background: linear-gradient(to bottom, #151848 1%,#070a1c 75%,#000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#151848', endColorstr='#000000',GradientType=0 );
+    color: #FFF;
+}
+
+.mobileDeviceModal .textblock{
+    margin-top: 50px;
 }
 
 .votingSuccessModal{

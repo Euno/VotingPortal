@@ -7,6 +7,8 @@ class Votings extends \Phalcon\Mvc\Model
 
     public $title;
 
+    public $description;
+
     public $url;
 
     public $parent;
