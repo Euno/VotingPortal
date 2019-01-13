@@ -51,7 +51,7 @@ body{
     border: 1px solid #0597F2;
 }
 
-#votingportal .proceedVote{
+#votingportal .proceedVote, #votingportal .proceedVoteNextBtn{
     background-color: #0597F2;
     background-image: none;
     color: #FFF;
