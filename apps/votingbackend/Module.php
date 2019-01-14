@@ -23,17 +23,16 @@ class Module implements ModuleDefinitionInterface
             )
         );
         $loader->register();
-
     }
 
     public function registerServices(DiInterface $di)
     {
         $di->set('dispatcher', function () use ($di) {
-            //$eventsManager = $di->getShared('eventsManager');
+            $eventsManager = $di->getShared('eventsManager');
 
-            //$eventsManager->attach('dispatch:beforeDispatch', new \EunoVoting\VotingBackend\Plugins\SecurityPlugin());
+            $eventsManager->attach('dispatch:beforeDispatch', new \EunoVoting\VotingBackend\Plugins\SecurityPlugin());
             $dispatcher = new Dispatcher();
-            //$dispatcher->setEventsManager($eventsManager);
+            $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace("EunoVoting\\VotingBackend\\Controllers");
 
             return $dispatcher;
