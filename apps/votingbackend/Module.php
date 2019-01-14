@@ -36,7 +36,6 @@ class Module implements ModuleDefinitionInterface
             $dispatcher->setDefaultNamespace("EunoVoting\\VotingBackend\\Controllers");
 
             return $dispatcher;
-
         });
 
         $di->set('view', function () {
