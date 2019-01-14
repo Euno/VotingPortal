@@ -64,6 +64,9 @@
                                 <?php } ?>
                             </select>
                         </div>
+                        <p class="clipboard">
+                            <a href="javascript:void(0)">Copy vote answer to clipboard</a>
+                        </p>
                     </div>
                 </div>
 
@@ -103,7 +106,7 @@
                                                 </a>
                                             </div>
                                             <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
-                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message couldn't be validated and may not be confirmed by the EUNO team. Please re-check your vote!</span>
+                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message couldn't be validated and can not be confirmed by the EUNO team. Please re-check your vote!</span>
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +150,7 @@
                 }
 
                 var nodes = <?=json_encode($nodes)?>;
+                var sigErrors = [];
 
                 $('.ipSelect').select2();
 
@@ -216,6 +220,28 @@
                 }
                 initEvents();
 
+                $('p.clipboard').find('a').on('click', function(){
+
+                    var anchor = $(this);
+                    var orgText = anchor.text();
+                    $(this).text('Copied vote answer to clipboard!');
+
+                    var answer = $('select[name="answer"]').val();
+                    $('.clipboardContainerInput').val(answer);
+
+                    var tempInput = document.createElement("input");
+                    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+                    tempInput.value = answer;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(tempInput);
+
+                    setTimeout(function(){
+                        anchor.text(orgText);
+                    }, 3000);
+                });
+
                 function checkSignedMessage(voteRow){
                     var val = voteRow.find('textarea').val();
                     var address = voteRow.find('input.address').val();
@@ -236,12 +262,20 @@
                                 switch (res.status){
                                     case true:
                                         span.hide();
+
+                                        if(typeof sigErrors[address] !== 'undefined'){
+                                            delete sigErrors[address];
+                                        }
+
                                         break;
 
                                     case false:
                                         span.show();
+                                        sigErrors[address] = false;
                                         break;
                                 }
+
+                                checkSubmitReady();
                             }
                         });
                     }
@@ -252,17 +286,15 @@
                     var countedValidRowVotes = 0;
 
                     $('.voteRow').each(function(){
-
                         var select = $(this).find('select');
                         var textarea = $(this).find('textarea');
 
-                        if(select.val() && $.trim(textarea.val()))
+                        if(select.val() && $.trim(textarea.val())){
                             countedValidRowVotes++;
-
-
+                        }
                     });
 
-                    if(countedValidRowVotes === countVoteRows) {
+                    if(countedValidRowVotes === countVoteRows && Object.keys(sigErrors).length === 0) {
                         $('.proceedVoteNextBtn').removeAttr('disabled');
                         $('.proceedVote').removeAttr('disabled');
                     } else {
