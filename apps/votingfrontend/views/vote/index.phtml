@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="form-group">
-                            <label for="answer">Your vote <span style="font-size: 12px;">( Please copy your vote from the dropdown menu and paste as your answer when you sign the message )</span></label>
+                            <label for="answer">Your Vote <span style="font-size: 12px;">( Please copy your vote from the dropdown menu and paste as your answer when you sign the message )</span></label>
                             <select name="answer" id="answer" class="form-control answersSelect">
                                 <?php foreach ($answers as $answer){ ?>
                                     <option value="<?=$answer->answer?>"><?=$answer->answer?></option>
@@ -65,7 +65,7 @@
                             </select>
                         </div>
                         <p class="clipboard">
-                            <a href="javascript:void(0)">Copy vote to clipboard</a>
+                            <a href="javascript:void(0)">Copy vote to clipboard</a> - <a href="/files/tutorials/Voting_Tutorial.pdf" target="_blank">Read voting tutorial</a>
                         </p>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Masternode IP address + port</label>
+                                            <label>Masternode IP Address + Port</label>
                                             <select name="masternode_ipaddress_port[]" class="form-control ipSelect">
                                                 <option value="">- Select your node -</option>
                                                 <?php foreach ($nodes as $node => $address){ ?>
@@ -93,13 +93,13 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Masternode address</label>
+                                            <label>Masternode Address</label>
                                             <input type="text" name="masternode_address[]" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Signed message</label>
+                                            <label>Signed Message</label>
                                             <div class="pull-right">
                                                 <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
                                                     <i class="fa fa-times"></i>
@@ -124,13 +124,13 @@
 
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <button class="btn btn-primary btn-block addVote">Add vote</button>
+                        <button class="btn btn-primary btn-block addVote">Add Vote</button>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center">
-                        <button class="btn btn-primary btn-block proceedVoteNextBtn">Submit vote(s)</button>
+                        <button class="btn btn-primary btn-block proceedVoteNextBtn">Submit Vote(s)</button>
                         <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above submitted votes are correct. Submit the votes now!</button>
                     </div>
                 </div>
