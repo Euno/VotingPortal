@@ -1,7 +1,14 @@
 <!-- Page-Title -->
 <div class="row">
     <div class="col-sm-12">
-        <h4 class="page-title">Edit voting <?=($voting->id && $voting->round == 2 ? ' (Second voting round)' : '')?></h4>
+        <h4 class="page-title">
+            <?php if($voting->id){ ?>
+                Edit proposal
+            <?php }else{ ?>
+                Add proposal
+            <?php } ?>
+            <?=($voting->id && $voting->round == 2 ? ' (Second voting round)' : '')?>
+        </h4>
     </div>
 </div>
 
@@ -19,13 +26,13 @@
                         <div class="form-group row">
                             <label for="name" class="col-sm-2 form-control-label">Title</label>
                             <div class="col-sm-10">
-                                <input type="title" class="form-control" name="title" id="title" placeholder="Voting title" value="<?=$voting->title?>">
+                                <input type="title" class="form-control" name="title" id="title" placeholder="Proposal title" value="<?=$voting->title?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="url" class="col-sm-2 form-control-label">Voting URL</label>
+                            <label for="url" class="col-sm-2 form-control-label">Proposal URL</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="url" id="url" placeholder="Voting URL" value="<?=$voting->url?>">
+                                <input type="text" class="form-control" name="url" id="url" placeholder="Proposal URL" value="<?=$voting->url?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -35,15 +42,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="start_date" class="col-sm-2 form-control-label">Voting start date (UTC+1)</label>
+                            <label for="start_date" class="col-sm-2 form-control-label">Proposal start date (UTC+1)</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Voting start date" value="<?=($voting->start_date ? date("Y/m/d", $voting->start_date) : '')?>">
+                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Proposal start date" value="<?=($voting->start_date ? date("Y/m/d", $voting->start_date) : '')?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="end_date" class="col-sm-2 form-control-label">Voting expiring date (UTC+1)</label>
+                            <label for="end_date" class="col-sm-2 form-control-label">Proposal expiring date (UTC+1)</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="Voting expiring date" value="<?=($voting->end_date ? date("Y/m/d", $voting->end_date) : '')?>">
+                                <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="Proposal expiring date" value="<?=($voting->end_date ? date("Y/m/d", $voting->end_date) : '')?>">
                             </div>
                         </div>
                     </div>
@@ -93,7 +100,7 @@
 
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save voting</button>
+                    <button type="submit" class="btn btn-primary">Save proposal</button>
                     <a href="/votings" class="btn btn-secondary">Back to overview</a>
 
                 </div>

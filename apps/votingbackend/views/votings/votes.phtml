@@ -5,7 +5,7 @@
 
             <div class="btn-group pull-right m-t-15">
 
-                <a href="/votings" class="btn btn-secondary">Back to votings</a>
+                <a href="/votings" class="btn btn-secondary">Back to proposals</a>
 
                 <?php if($totalConfirmedVotes > 0){ ?>
                 <button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Actions</button>
@@ -16,7 +16,7 @@
                 <?php } ?>
             </div>
 
-            <h4 class="page-title">Votes in voting <em>"<?=$voting->title?>"</em></h4>
+            <h4 class="page-title">Voting results for <em>"<?=$voting->title?>"</em></h4>
         </div>
     </div>
 
@@ -76,7 +76,7 @@
                                 IP address + port
                             </th>
                             <th>Collateral address</th>
-                            <th>Answer</th>
+                            <th>Vote</th>
                             <th>Signed message</th>
                             <th>Vote date</th>
                             <th>Signed message check</th>

@@ -10,9 +10,13 @@ class VotingsController extends ControllerBase
 {
     public function indexAction()
     {
-        $votings = Votings::find('round = 1');
+        $votings = Votings::find([
+            'round = 1',
+            'order' => 'start_date DESC'
+        ]);
 
         $this->view->votings = $votings;
+        $this->view->votingsCount = $votings->count();
     }
 
     public function editAction($id = 0)

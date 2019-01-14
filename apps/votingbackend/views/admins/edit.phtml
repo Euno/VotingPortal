@@ -1,7 +1,13 @@
 <!-- Page-Title -->
 <div class="row">
     <div class="col-sm-12">
-        <h4 class="page-title">Edit administrator</h4>
+        <h4 class="page-title">
+            <?php if($admin->id){ ?>
+                Edit administrator
+            <?php }else{ ?>
+                Add administrator
+            <?php } ?>
+        </h4>
     </div>
 </div>
 
