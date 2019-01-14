@@ -9,6 +9,7 @@ use Phalcon\Mvc\User\Plugin;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Acl\Adapter\Memory as AclList;
 use Phalcon\Http\Response as Response;
+
 /**
  * SecurityPlugin
  *
@@ -23,9 +24,11 @@ class SecurityPlugin extends Plugin
      */
     public function getAcl()
     {
-        if (!isset($this->persistent->acl)) {
+        if (!isset($this->persistent->acl))
+        {
             $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
+
             // Register roles
             $roles = [
                 'users'  => new Role(
@@ -37,7 +40,9 @@ class SecurityPlugin extends Plugin
                     'Anyone browsing the site who is not signed in is considered to be a "Guest".'
                 )
             ];
-            foreach ($roles as $role) {
+
+            foreach ($roles as $role)
+            {
                 $acl->addRole($role);
             }
 
@@ -46,14 +51,18 @@ class SecurityPlugin extends Plugin
                 'auth'    => ['index', 'start', 'end']
             ];
 
-            foreach ($publicResources as $resource => $actions) {
+            foreach ($publicResources as $resource => $actions)
+            {
                 $acl->addResource(new Resource($resource), $actions);
             }
 
             //Grant access to public areas to both users and guests
-            foreach ($roles as $role) {
-                foreach ($publicResources as $resource => $actions) {
-                    foreach ($actions as $action){
+            foreach ($roles as $role)
+            {
+                foreach ($publicResources as $resource => $actions)
+                {
+                    foreach ($actions as $action)
+                    {
                         $acl->allow($role->getName(), $resource, $action);
                     }
                 }
@@ -62,8 +71,10 @@ class SecurityPlugin extends Plugin
             //The acl is stored in session, APC would be useful here too
             $this->persistent->acl = $acl;
         }
+
         return $this->persistent->acl;
     }
+
     /**
      * This action is executed before execute any action in the application
      *
@@ -73,11 +84,13 @@ class SecurityPlugin extends Plugin
      */
     public function beforeDispatch(Event $event, Dispatcher $dispatcher)
     {
-
         $auth = $this->session->get('auth');
-        if (!$auth){
+        if (!$auth)
+        {
             $role = 'Guests';
-        } else {
+        }
+        else
+        {
             $role = 'Users';
         }
 
@@ -86,9 +99,11 @@ class SecurityPlugin extends Plugin
 
         $acl = $this->getAcl();
 
-        if($role == 'Guests') {
+        if($role == 'Guests')
+        {
             $allowed = $acl->isAllowed($role, $controller, $action);
-            if ($allowed != Acl::ALLOW) {
+            if ($allowed != Acl::ALLOW)
+            {
                 $dispatcher->forward([
                     'module' => 'votingbackend',
                     'controller' => 'auth',

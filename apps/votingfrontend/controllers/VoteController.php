@@ -60,9 +60,6 @@ class VoteController extends Controller
         {
             $post = $this->request->getPost();
 
-            //print '<pre>';
-            //print_r($post);
-
             $votes = [];
 
             foreach ($post['masternode_ipaddress_port'] as $k => $masternode_ipaddress_port)

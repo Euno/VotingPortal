@@ -71,5 +71,4 @@ class Users extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
-
 }

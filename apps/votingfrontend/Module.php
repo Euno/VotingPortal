@@ -20,7 +20,6 @@ class Module implements ModuleDefinitionInterface
                 'EunoVoting\Common\Libraries' => '../apps/common/libraries/'
             )
         );
-
         $loader->register();
     }
 

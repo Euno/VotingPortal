@@ -6,12 +6,10 @@ use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller
 {
-
     public function initialize()
     {
         // Add some local CSS resources
         $this->assets
-            //->addCss('assets/plugins/morris/morris.css')
             ->addCss('assets/plugins/switchery/switchery.min.css')
             ->addCss('assets/plugins/datatables/dataTables.bootstrap4.min.css')
             ->addCss('assets/plugins/datatables/buttons.bootstrap4.min.css')
@@ -65,5 +63,4 @@ class ControllerBase extends Controller
         $this->view->wallet_status = $status;
         $this->view->wallet_version = $version;
     }
-
 }

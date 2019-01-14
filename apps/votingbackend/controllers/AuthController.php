@@ -22,12 +22,8 @@ class AuthController extends ControllerBase
         );
     }
 
-    /**
-     * This action authenticate and logs a user into the application
-     */
     public function startAction()
     {
-
         if ($this->request->isPost()) {
 
             // Get the data from the user
@@ -39,7 +35,8 @@ class AuthController extends ControllerBase
 
             if ($user != false) {
 
-                if ($this->security->checkHash($password, $user->password)) {
+                if ($this->security->checkHash($password, $user->password))
+                {
                     $this->_registerSession($user);
 
                     $this->flash->success('Welcome ' . $user->name);
@@ -47,18 +44,20 @@ class AuthController extends ControllerBase
                     // Forward to the 'invoices' controller if the user is valid
                     return $this->response->redirect( 'votings');
                     
-                }else{
+                }
+                else
+                {
                     $this->flash->error('Wrong email/password');
                 }
 
-            } else {
+            }
+            else
+            {
 
                 $this->flash->error('Wrong email/password');
             }
-
         }
 
-        // Forward to the login form again
         return $this->dispatcher->forward(
             [
                 'controller' => 'auth',
@@ -79,6 +78,4 @@ class AuthController extends ControllerBase
         $this->flash->success('Goodbye!');
         return $this->response->redirect('auth/index');
     }
-
 }
-
