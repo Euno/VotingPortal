@@ -65,7 +65,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 form-control-label">Answer</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" placeholder="Answer" name="answers[]" value="" />
+                                    <input type="text" class="form-control" placeholder="Answer" name="answers[]" value="" <?=($votes ? 'disabled' : '')?> />
                                 </div>
                                 <div class="col-sm-3">
                                     <?php if(!$votes){ ?>
@@ -80,7 +80,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 form-control-label">Answer</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" placeholder="Answer" name="answers[]" value="<?=$anwser->answer?>" />
+                                            <input type="text" class="form-control" placeholder="Answer" name="answers[]" value="<?=$anwser->answer?>" <?=($votes ? 'disabled' : '')?> />
                                         </div>
                                         <div class="col-sm-3">
                                             <?php if(!$votes){ ?>
