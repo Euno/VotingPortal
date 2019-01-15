@@ -12,7 +12,7 @@ class VotingsController extends ControllerBase
     {
         $votings = Votings::find([
             'round = 1',
-            'order' => 'start_date DESC'
+            'order' => 'add_date DESC'
         ]);
 
         $this->view->votings = $votings;
@@ -22,6 +22,8 @@ class VotingsController extends ControllerBase
     public function editAction($id = 0)
     {
         $answers = [];
+        $votes = false;
+
         if($id)
         {
             $voting = Votings::findFirst($id);
@@ -32,6 +34,7 @@ class VotingsController extends ControllerBase
             }
 
             $answers = $voting->getAnswers();
+            $votes = $voting->getVotes()->count() > 0 ? true : false;
         }
         else
         {
@@ -40,6 +43,7 @@ class VotingsController extends ControllerBase
 
         $this->view->voting = $voting;
         $this->view->answers = $answers;
+        $this->view->votes = $votes;
     }
 
     public function saveAction($id = 0)
@@ -79,7 +83,7 @@ class VotingsController extends ControllerBase
             }
         }
 
-        return $this->response->redirect('votings/edit/'.$voting->id);
+        return $this->response->redirect('votings');
     }
 
     public function deleteAction($id = 0)
