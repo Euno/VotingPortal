@@ -75,6 +75,9 @@ class VoteController extends Controller
 
             foreach ($votes as $vote)
             {
+                if(Votes::findFirst('voting_id = '.$voting->id.' AND masternode_address = "'.$vote['masternode_address'].'" AND confirmed IN (0, 1)'))
+                    continue;
+
                 $voteModel = new Votes();
                 $voteModel->voting_id = $voting->id;
                 $voteModel->answer = $post['answer'];
