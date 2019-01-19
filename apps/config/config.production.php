@@ -25,6 +25,8 @@ return new \Phalcon\Config([
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => 'https://voting.euno.co/',
+        'backendBaseUri' => 'https://admin.voting.euno.co/',
+        'backendModuleHost' => 'admin.voting.euno.co',
     ],
     'env' => 'production',
     'eunod' => [
