@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Euno Governance Voting Portal - <?=$voting->title?></title>
         <meta name="author" content="@arrie1992">
 
@@ -143,10 +145,10 @@
                 function isMobile() { return ('ontouchstart' in document.documentElement); }
 
                 if(isMobile()){
-                    $('.voting-container').hide();
-                    $('.mobileDeviceModal').show();
+                    //$('.voting-container').hide();
+                    //$('.mobileDeviceModal').show();
 
-                    alert('The votingportal does currently not support mobile devices. Please use this portal with a desktop computer or laptop!');
+                    //alert('The votingportal does currently not support mobile devices. Please use this portal with a desktop computer or laptop!');
                 }
 
                 var nodes = <?=json_encode($nodes)?>;
