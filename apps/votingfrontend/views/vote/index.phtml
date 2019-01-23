@@ -145,10 +145,10 @@
                 function isMobile() { return ('ontouchstart' in document.documentElement); }
 
                 if(isMobile()){
-                    //$('.voting-container').hide();
-                    //$('.mobileDeviceModal').show();
+                    $('.voting-container').hide();
+                    $('.mobileDeviceModal').show();
 
-                    //alert('The votingportal does currently not support mobile devices. Please use this portal with a desktop computer or laptop!');
+                    alert('The votingportal does currently not support mobile devices. Please use this portal with a desktop computer or laptop!');
                 }
 
                 var nodes = <?=json_encode($nodes)?>;
