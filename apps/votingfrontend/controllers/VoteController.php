@@ -126,6 +126,6 @@ class VoteController extends Controller
 
     public function thankyouAction($url = '')
     {
-
+        $this->view->redirectUrl = $url;
     }
 }
