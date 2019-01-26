@@ -235,7 +235,7 @@ class VotingsController extends ControllerBase
 
         $pdfData = [];
 
-        krsort($resultsFormatted);
+        arsort($resultsFormatted);
 
         $pdfData['voting'] = $voting;
         $pdfData['results'] = $resultsFormatted;
@@ -256,10 +256,8 @@ class VotingsController extends ControllerBase
         $mpdf->Output('', "I");
     }
 
-    public function reportBarsAction($voting_id = 0)
+    private function _cmp($a, $b)
     {
-        $chart = new Barchart();
-        echo $chart->draw();
-        exit;
+        return strcmp($a->name, $b->name);
     }
 }
