@@ -255,9 +255,4 @@ class VotingsController extends ControllerBase
         $mpdf->WriteHTML($html);
         $mpdf->Output('', "I");
     }
-
-    private function _cmp($a, $b)
-    {
-        return strcmp($a->name, $b->name);
-    }
 }
