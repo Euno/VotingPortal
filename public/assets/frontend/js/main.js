@@ -10,6 +10,7 @@ $(function(){
 
     var nodes = window.nodes;
     var sigErrors = [];
+    var foundDoubleAddress = false;
 
     $('.ipSelect').select2();
 
@@ -141,6 +142,7 @@ $(function(){
     }
 
     function checkSubmitReady(){
+        collectChosenAdresses();
         var countVoteRows = $('.voteRow').length;
         var countedValidRowVotes = 0;
 
@@ -153,12 +155,36 @@ $(function(){
             }
         });
 
-        if(countedValidRowVotes === countVoteRows && Object.keys(sigErrors).length === 0) {
+        if(countedValidRowVotes === countVoteRows && Object.keys(sigErrors).length === 0 && foundDoubleAddress !== true) {
             $('.proceedVoteNextBtn').removeAttr('disabled');
             $('.proceedVote').removeAttr('disabled');
         } else {
             $('.proceedVoteNextBtn').attr('disabled', 'disabled');
             $('.proceedVote').attr('disabled', 'disabled');
+        }
+    }
+
+    var chosenAddresses = [];
+    function collectChosenAdresses() {
+        chosenAddresses = [];
+        foundDoubleAddress = false;
+
+        $('.voteRow').each(function(){
+            var address = $(this).find('input.address').val();
+            if(address){
+
+                if(chosenAddresses.indexOf(address) !== -1){
+                    foundDoubleAddress = true;
+                } else {
+                    chosenAddresses.push(address);
+                }
+            }
+        });
+
+        if(foundDoubleAddress){
+            $('.warning-row').show();
+        } else {
+            $('.warning-row').hide();
         }
     }
 });
