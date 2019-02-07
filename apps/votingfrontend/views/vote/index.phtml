@@ -10,7 +10,7 @@
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
-        <link type="text/css" rel="stylesheet" href="/assets/css/vote_frontend.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css" />
         <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -67,7 +67,11 @@
                             </select>
                         </div>
                         <p class="clipboard">
-                            <a href="javascript:void(0)">Copy vote to clipboard</a> - <a href="/files/tutorials/Voting_Tutorial.pdf" target="_blank">Read voting tutorial</a>
+                            <a href="javascript:void(0)">Copy vote to clipboard</a> -
+                            <a href="/files/tutorials/Voting_Tutorial.pdf" target="_blank">Read voting tutorial</a> -
+                            <span id="votingCountdown">
+                                Voting will expire in: <span></span>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -87,6 +91,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Masternode IP Address + Port</label>
+                                            <div class="pull-right hidden-md hidden-lg">
+                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
                                             <select name="masternode_ipaddress_port[]" class="form-control ipSelect">
                                                 <option value="">- Select your node -</option>
                                                 <?php foreach ($nodes as $node => $address){ ?>
@@ -102,7 +111,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Signed Message</label>
-                                            <div class="pull-right">
+                                            <div class="pull-right hidden-xs hidden-sm">
                                                 <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -124,6 +133,14 @@
                     </div>
                 </div>
 
+                <div class="row warning-row" style="display: none;">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="alert alert-warning multipleAddressesWarning" role="alert">
+                            You are trying to vote multiple times with the same address(es).
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <button class="btn btn-primary btn-block addVote">Add Vote</button>
@@ -141,170 +158,13 @@
         </div>
 
         <script type="application/javascript">
-            $(function(){
-                function isMobile() { return ('ontouchstart' in document.documentElement); }
 
-                if(isMobile()){
-                    //$('.voting-container').hide();
-                    //$('.mobileDeviceModal').show();
+            window.votingEndDate = <?=$voting->end_date?>;
+            window.nodes = <?=json_encode($nodes)?>;
 
-                    //alert('The votingportal does currently not support mobile devices. Please use this portal with a desktop computer or laptop!');
-                }
-
-                var nodes = <?=json_encode($nodes)?>;
-                var sigErrors = [];
-
-                $('.ipSelect').select2();
-
-                $('.addVote').on('click', function(e){
-                    e.preventDefault();
-
-                    var clone = $('.votes').find('.voteRow').first().clone();
-
-                    clone.find('input').val('');
-                    clone.find('textarea').val('');
-                    clone.find('.select2-container').remove();
-                    clone.find('select').removeClass('select2-hidden-accessible');
-                    clone.find('span.invalidSignedMsgWarning').hide();
-
-                    $('.votes').append(clone);
-
-                    $('.votes').find('.voteRow').last().find('select').select2();
-
-                    initEvents();
-                });
-
-                $('.proceedVoteNextBtn').on('click', function(e){
-                    e.preventDefault();
-
-                    $(this).hide();
-                    $('.proceedVote').show();
-                });
-
-                $('.answersSelect').select2({minimumResultsForSearch: -1});
-
-                $('select[name="answer"]').on('change', function(){
-                    $('.voteRow').each(function(){
-                        checkSignedMessage($(this));
-                    });
-                    checkSubmitReady();
-                });
-
-                function initEvents(){
-                    $('.voteRow').each(function(){
-                        var voteRow = $(this);
-
-                        voteRow.find('.ipSelect').on('change', function () {
-                            var val = $(this).val();
-
-                            voteRow.find('input.address').val(nodes[val]).change();
-                            checkSubmitReady();
-                        });
-
-                        voteRow.find('textarea, input.address').off('change').on('change', function () {
-                            checkSignedMessage(voteRow);
-                            checkSubmitReady();
-                        });
-
-                        voteRow.find('.remove-vote').off('click').on('click', function () {
-                            voteRow.remove();
-                            initEvents();
-                        });
-                    });
-
-                    if( $('.voteRow').length > 1 ) {
-                        $('.remove-vote').show();
-                    } else {
-                        $('.remove-vote').hide();
-                    }
-
-                    checkSubmitReady();
-                }
-                initEvents();
-
-                $('p.clipboard').find('a').on('click', function(){
-
-                    var anchor = $(this);
-                    var orgText = anchor.text();
-                    $(this).text('Copied vote answer to clipboard!');
-
-                    var answer = $('select[name="answer"]').val();
-                    $('.clipboardContainerInput').val(answer);
-
-                    var tempInput = document.createElement("input");
-                    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
-                    tempInput.value = answer;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(tempInput);
-
-                    setTimeout(function(){
-                        anchor.text(orgText);
-                    }, 3000);
-                });
-
-                function checkSignedMessage(voteRow){
-                    var val = voteRow.find('textarea').val();
-                    var address = voteRow.find('input.address').val();
-                    var answer = $('select[name="answer"]').val();
-
-                    if($.trim(val) && $.trim(address) && $.trim(answer)) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/vote/signedMsgCheck',
-                            data: {
-                                signedMessage: val,
-                                address: address,
-                                answer: answer
-                            },
-                            dataType: 'JSON',
-                            success: function(res){
-                                var span = voteRow.find('span.invalidSignedMsgWarning');
-                                switch (res.status){
-                                    case true:
-                                        span.hide();
-
-                                        if(typeof sigErrors[address] !== 'undefined'){
-                                            delete sigErrors[address];
-                                        }
-
-                                        break;
-
-                                    case false:
-                                        span.show();
-                                        sigErrors[address] = false;
-                                        break;
-                                }
-
-                                checkSubmitReady();
-                            }
-                        });
-                    }
-                }
-
-                function checkSubmitReady(){
-                    var countVoteRows = $('.voteRow').length;
-                    var countedValidRowVotes = 0;
-
-                    $('.voteRow').each(function(){
-                        var select = $(this).find('select');
-                        var textarea = $(this).find('textarea');
-
-                        if(select.val() && $.trim(textarea.val())){
-                            countedValidRowVotes++;
-                        }
-                    });
-
-                    if(countedValidRowVotes === countVoteRows && Object.keys(sigErrors).length === 0) {
-                        $('.proceedVoteNextBtn').removeAttr('disabled');
-                        $('.proceedVote').removeAttr('disabled');
-                    } else {
-                        $('.proceedVoteNextBtn').attr('disabled', 'disabled');
-                        $('.proceedVote').attr('disabled', 'disabled');
-                    }
-                }
-            });
         </script>
+
+        <script src="/assets/frontend/js/main.js"></script>
+        <script src="/assets/frontend/js/countdown.js"></script>
     </body>
 </html>

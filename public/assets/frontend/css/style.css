@@ -75,6 +75,10 @@ body{
     height: 105px;
 }
 
+#votingportal .multipleAddressesWarning{
+    padding: 10px 15px;
+}
+
 .select2-container--default .select2-selection--single{
     border-radius: 0 !important;
     border: 1px solid #0597F2 !important;
