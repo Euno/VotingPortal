@@ -91,6 +91,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Masternode IP Address + Port</label>
+                                            <div class="pull-right hidden-md hidden-lg">
+                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
                                             <select name="masternode_ipaddress_port[]" class="form-control ipSelect">
                                                 <option value="">- Select your node -</option>
                                                 <?php foreach ($nodes as $node => $address){ ?>
@@ -106,7 +111,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Signed Message</label>
-                                            <div class="pull-right">
+                                            <div class="pull-right hidden-xs hidden-sm">
                                                 <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
                                                     <i class="fa fa-times"></i>
                                                 </a>
