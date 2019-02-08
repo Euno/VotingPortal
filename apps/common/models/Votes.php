@@ -52,6 +52,20 @@ class Votes extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Column(type="integer", length=1, nullable=false)
+     */
+    public $anon_vote;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=false)
+     */
+    public $vote_hash;
+
+    /**
+     *
+     * @var integer
      * @Column(type="integer", length=10, nullable=false)
      */
     public $date;
