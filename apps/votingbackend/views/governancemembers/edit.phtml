@@ -1,0 +1,96 @@
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">
+            Edit governance member
+        </h4>
+    </div>
+</div>
+
+<form method="post" action="/governancemembers/save/<?=$governanceMember->id?>">
+
+<div class="row">
+
+    <div class="col-xs-12 col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 col-xl-6">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0 m-b-30">Default info</h4>
+
+                        <div class="form-group row">
+                            <label for="telegram" class="col-sm-2 form-control-label">Telegram username</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="telegram" id="telegram" placeholder="Telegram username" value="<?=$governanceMember->telegram?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="discord" class="col-sm-2 form-control-label">Discord username</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="discord" id="discord" placeholder="Discord username" value="<?=$governanceMember->discord?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="twitter_handle" class="col-sm-2 form-control-label">Twitter handle</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="twitter_handle" id="twitter_handle" placeholder="Twitter handle" value="<?=$governanceMember->twitter_handle?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 col-xl-6 m-t-sm-40">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0 m-b-30">Masternode info</h4>
+
+                        <div class="form-group row">
+                            <label for="masternode_address" class="col-sm-2 form-control-label">Masternode address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="masternode_address" id="masternode_address" placeholder="Masternode address" value="<?=$governanceMember->masternode_address?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="masternode_ipaddress" class="col-sm-2 form-control-label">Masternode ipaddress</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="masternode_ipaddress" id="masternode_ipaddress" placeholder="Masternode ipaddress" value="<?=$governanceMember->masternode_ipaddress?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="signed_msg" class="col-sm-2 form-control-label">Signed message</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="signed_msg" id="signed_msg" placeholder="Signed message"><?=$governanceMember->signed_msg?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2"></label>
+                            <div class="col-sm-10">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="hidden" name="access" value="0">
+                                    <input id="access"  name="access" type="checkbox" value="1" <?=$governanceMember->access == 1 ? 'checked="checked"' : ''?>">
+                                    <label for="active">
+                                        Access to governance room
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save member</button>
+                    <a href="/governancemembers" class="btn btn-secondary">Cancel</a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div><!-- end col-->
+
+</form>
+
+
+</div>
+<!-- end row -->
