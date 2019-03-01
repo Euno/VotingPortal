@@ -2,6 +2,7 @@
 namespace EunoVoting\Signup\Controllers;
 
 use EunoVoting\Common\Libraries\jsonRPCClient;
+use EunoVoting\Common\Models\GovernanceMembers;
 use EunoVoting\Common\Models\Votings;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Controller;
@@ -12,31 +13,41 @@ class SignupController extends Controller
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
 
-        $used_addresses = [];
+        $connect_string = sprintf('http://%s:%s@%s:%s/', $this->config->eunod->user, $this->config->eunod->pass, $this->config->eunod->host, $this->config->eunod->port);
+        $coind = new jsonRPCClient($connect_string);
 
-        $used_addresses_flat = [];
-        foreach ($used_addresses as $ua)
+        $resultd = $coind->masternode('list', 'pubkey');
+
+        if($resultd !== false && $resultd !== 'error')
         {
-            if(!in_array($ua->masternode_address, $used_addresses_flat))
-                $used_addresses_flat[] = $ua->masternode_address;
+            $nodes = $resultd;
         }
-
-        $nodes = file_get_contents('https://explorer.euno.co/api/getmasternodes');
-
-        if($nodes)
+        else
         {
-            $nodes = json_decode($nodes, true);
+            $nodes = file_get_contents('https://explorer.euno.co/api/getmasternodes');
 
-            foreach ($nodes as $ip => $address)
+            if(!$nodes)
             {
-                if(in_array($address, $used_addresses_flat))
-                {
-                    unset($nodes[$ip]);
-                }
+                $nodes = [];
             }
         }
 
         $this->view->nodes = $nodes;
+    }
+
+    public function saveAction()
+    {
+        $this->view->disable();
+
+        if($this->request->isPost())
+        {
+            $post = $this->request->getPost();
+
+            $signup = new GovernanceMembers();
+            $signup->save($post);
+
+            return $this->response->redirect('signup/thankyou');
+        }
     }
 
     public function signedMsgCheckAction()
@@ -50,7 +61,7 @@ class SignupController extends Controller
             $connect_string = sprintf('http://%s:%s@%s:%s/', $this->config->eunod->user, $this->config->eunod->pass, $this->config->eunod->host, $this->config->eunod->port);
             $coind = new jsonRPCClient($connect_string);
 
-            $resultd = $coind->verifymessage($post['address'], $post['signedMessage'], $post['answer']);
+            $resultd = $coind->verifymessage($post['address'], $post['signedMessage'], $post['telegram_username']);
 
             $result = false;
             switch(true)
@@ -69,4 +80,6 @@ class SignupController extends Controller
             ]);
         }
     }
+
+    public function thankyouAction(){}
 }

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Euno Governance Voting Portal - Signup</title>
+        <title>Euno Governance Room - Signup</title>
         <meta name="author" content="@arrie1992">
 
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
@@ -43,17 +43,22 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Telegram username</label>
-                                            <input type="text" name="telegram_username[]" class="form-control" placeholder="@username" />
+                                            <label>Telegram username *</label>
+                                            <input type="text" name="telegram_username" class="form-control telegram_username" placeholder="@username" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Masternode IP Address + Port</label>
-                                            <div class="pull-right hidden-md hidden-lg">
-                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                            <select name="masternode_ipaddress_port[]" class="form-control ipSelect">
+                                            <label>Discord username</label>
+                                            <input type="text" name="discord" class="form-control" placeholder="User#4535" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Twitter handle</label>
+                                            <input type="text" name="twitter_handle" class="form-control" placeholder="@twitter_username" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Masternode IP Address + Port *</label>
+                                            <select name="masternode_ipaddress_port" class="form-control ipSelect">
                                                 <option value="">- Select your node -</option>
                                                 <?php foreach ($nodes as $node => $address){ ?>
                                                     <option value="<?=$node?>"><?=$node?></option>
@@ -62,24 +67,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Masternode Address</label>
-                                            <input type="text" name="masternode_address[]" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
+                                            <input type="text" name="masternode_address" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Signed Message *</label>
+                                            <textarea name="signed_msg" class="form-control signupTextArea" placeholder="E.g. H5dR8/FSCrnFjNigIjiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
+                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message is invalid. Please sign @your_telegram_username with your chosen masternode address.</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Discord username</label>
-                                            <input type="text" name="discord_username[]" class="form-control" placeholder="User#4535" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Signed Message</label>
-                                            <div class="pull-right hidden-xs hidden-sm">
-                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                            <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
-                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message couldn't be validated and can not be confirmed by the EUNO team. Please re-check your vote!</span>
-                                        </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 requiredFieldsMsg">
+                                        * = required fields
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center">
                         <button class="btn btn-primary btn-block proceedVoteNextBtn">Submit form</button>
-                        <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above submitted votes are correct. Submit the votes now!</button>
+                        <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above provided info is correct. Submit the form now!</button>
                     </div>
                 </div>
 
@@ -108,6 +108,6 @@
             window.nodes = <?=json_encode($nodes)?>;
         </script>
 
-        <script src="/assets/frontend/js/main.js"></script>
+        <script src="/assets/frontend/js/signup.js"></script>
     </body>
 </html>

@@ -42,10 +42,6 @@ class GovernancemembersController extends ControllerBase
         {
             $post = $this->request->getPost();
 
-            //print '<pre>';
-            //print_r($post);
-            //exit;
-
             if ($id)
             {
                 $governanceMember = GovernanceMembers::findFirst($id);

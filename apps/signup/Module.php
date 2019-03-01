@@ -5,6 +5,7 @@ use Phalcon\Loader,
     Phalcon\DiInterface,
     Phalcon\Mvc\Dispatcher,
     Phalcon\Mvc\View,
+    Phalcon\Mvc\Url,
     Phalcon\Mvc\ModuleDefinitionInterface;
 
 class Module implements ModuleDefinitionInterface
@@ -39,6 +40,16 @@ class Module implements ModuleDefinitionInterface
             $view->setViewsDir('../apps/signup/views/');
 
             return $view;
+        });
+
+        $di->set('url', function () use ($di) {
+            $url = new Url();
+
+            $config = $di->getShared('config');
+
+            $url->setBaseUri($config->application->signupBaseUri);
+
+            return $url;
         });
     }
 }

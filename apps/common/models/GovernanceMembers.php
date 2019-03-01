@@ -19,7 +19,7 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=45, nullable=false)
      */
-    public $telegram;
+    public $telegram_username;
 
     /**
      *
@@ -47,7 +47,7 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $masternode_ipaddress;
+    public $masternode_ipaddress_port;
 
     /**
      *
@@ -82,10 +82,10 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getSource()
+    /*public function getSource()
     {
-        return 'governance_members';
-    }
+        //return 'governance_members';
+    }*/
 
     /**
      * Allows to query a set of records that match the specified conditions
@@ -109,6 +109,12 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    public function beforeCreate()
+    {
+        $this->date = time();
+        $this->deleted = 0;
+    }
+
     public function initialize()
     {
         $this->addBehavior(new softDelete([
@@ -128,6 +134,6 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
         $connect_string = sprintf('http://%s:%s@%s:%s/', $config->eunod->user, $config->eunod->pass, $config->eunod->host, $config->eunod->port);
         $coind = new jsonRPCClient($connect_string);
 
-        return $coind->verifymessage($this->masternode_address, $this->signed_msg, $this->telegram);
+        return $coind->verifymessage($this->masternode_address, $this->signed_msg, $this->telegram_username);
     }
 }
