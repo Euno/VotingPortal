@@ -75,7 +75,9 @@ class VoteController extends Controller
 
             foreach ($votes as $vote)
             {
-                if(Votes::findFirst('voting_id = '.$voting->id.' AND masternode_address = "'.$vote['masternode_address'].'" AND confirmed IN (0, 1)'))
+                $voteHash = sha1($vote['masternode_ipaddress_port'].$vote['masternode_address']);
+
+                if(Votes::findFirst('voting_id = '.$voting->id.' AND vote_hash = "'.$voteHash.'" AND confirmed IN (0, 1)'))
                     continue;
 
                 $voteModel = new Votes();
@@ -85,8 +87,24 @@ class VoteController extends Controller
                 $voteModel->masternode_address = $vote['masternode_address'];
                 $voteModel->signed_msg = $vote['signed_msg'];
                 $voteModel->date = time();
+                $voteModel->anon_vote = 0;
+                $voteModel->vote_hash = $voteHash;
                 $voteModel->confirmed = 0;
                 $voteModel->create();
+
+                if($voteModel->checkHash() !== 'error' && $voteModel->checkHash() !== false)
+                {
+                    $voteModel->confirmed = 1;
+
+                    if(isset($post['vote_anon']))
+                    {
+                        $voteModel->anon_vote = 1;
+                        $voteModel->masternode_address = '';
+                        $voteModel->masternode_ipaddress_port = '';
+                    }
+
+                    $voteModel->update();
+                }
             }
 
             return $this->response->redirect('thankyou/'.$url);

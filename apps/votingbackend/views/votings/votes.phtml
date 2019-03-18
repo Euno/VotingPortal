@@ -87,7 +87,13 @@
                         <tbody>
                         <?php foreach( $votes as $v ){ ?>
                             <tr>
-                                <td><?=$v->masternode_ipaddress_port?></td>
+                                <td>
+                                    <?php if($v->anon_vote == 0){ ?>
+                                        <?=$v->masternode_ipaddress_port?>
+                                    <?php }else{ ?>
+                                        <em>Anonymous vote</em>
+                                    <?php } ?>
+                                </td>
                                 <td><?=$v->masternode_address?></td>
                                 <td><?=$v->answer?></td>
                                 <td>
@@ -96,14 +102,18 @@
                                 <td><?=date("Y/m/d H:i:s", $v->date)?></td>
                                 <td>
                                     <?php
-                                    if($v->checkHash() !== 'error' && $v->checkHash() !== false){ ?>
+                                    if($v->checkHash() !== 'error' && $v->checkHash() !== false && $v->anon_vote == 0){ ?>
                                         <span class="label label-success" title="Signed message valid">
                                             <i class="fa fa-check"></i>
                                         </span>
-                                    <?php }else{ ?>
+                                    <?php }elseif(($v->checkHash() === 'error' || $v->checkHash() === false) && $v->anon_vote == 0){ ?>
                                         <span class="label label-danger" title="Signed message invalid">
                                             <i class="fa fa-times"></i>
                                         </span>
+                                    <?php } ?>
+
+                                    <?php if($v->anon_vote == 1){ ?>
+                                        Can't validate vote post voting
                                     <?php } ?>
                                 </td>
                                 <td>

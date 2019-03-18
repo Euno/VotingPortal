@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Euno Governance Room - Signup</title>
+        <meta name="author" content="@arrie1992">
+
+        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
+    </head>
+    <body id="votingportal">
+
+        <div class="container voting-container">
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <img src="/assets/images/votingportal/voting-portal-euno-logo-1.png" alt="EUNO logo" class="logo" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <img src="/assets/images/signup/subtitle.png" alt="EUNO governance signup" class="subtitle" />
+                </div>
+            </div>
+
+            <form action="/signup/save" method="post">
+
+                <div class="votes">
+                    <div class="voteRow">
+                        <div class="row">
+
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Telegram username *</label>
+                                            <input type="text" name="telegram_username" class="form-control telegram_username" placeholder="@username" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Discord username</label>
+                                            <input type="text" name="discord" class="form-control" placeholder="User#4535" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Twitter handle</label>
+                                            <input type="text" name="twitter_handle" class="form-control" placeholder="@twitter_username" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Masternode IP Address + Port *</label>
+                                            <select name="masternode_ipaddress_port" class="form-control ipSelect">
+                                                <option value="">- Select your node -</option>
+                                                <?php foreach ($nodes as $node => $address){ ?>
+                                                    <option value="<?=$node?>"><?=$node?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Masternode Address</label>
+                                            <input type="text" name="masternode_address" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Signed Message *</label>
+                                            <textarea name="signed_msg" class="form-control signupTextArea" placeholder="E.g. H5dR8/FSCrnFjNigIjiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
+                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message is invalid. Please sign @your_telegram_username with your chosen masternode address.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 requiredFieldsMsg">
+                                        * = required fields
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-center">
+                        <button class="btn btn-primary btn-block proceedVoteNextBtn">Submit form</button>
+                        <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above provided info is correct. Submit the form now!</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <script type="application/javascript">
+            window.nodes = <?=json_encode($nodes)?>;
+        </script>
+
+        <script src="/assets/frontend/js/signup.js"></script>
+    </body>
+</html>

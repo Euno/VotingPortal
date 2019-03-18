@@ -45,6 +45,10 @@ try {
             'votingbackend' => array(
                 'className' => 'EunoVoting\VotingBackend\Module',
                 'path' => '../apps/votingbackend/Module.php',
+            ),
+            'signup' => array(
+                'className' => 'EunoVoting\Signup\Module',
+                'path' => '../apps/signup/Module.php',
             )
         )
     );

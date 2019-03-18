@@ -78,4 +78,41 @@ $votingbackend->add("/:controller/:action/:params", array(
 
 $router->mount($votingbackend);
 
+/*
+ * Signup
+ */
+$signup = new RouterGroup(
+    [
+        "module"     => "signup"
+    ]
+);
+
+$signup->setHostName($config->application->signupModuleHost);
+
+$signup->add("/", array(
+    'module' => 'signup',
+    'controller' => 'signup',
+    'action' => 'index'
+));
+
+$signup->add("/:controller", array(
+    'module' => 'signup',
+    'controller' => 1
+));
+
+$signup->add("/:controller/:action", array(
+    'module' => 'signup',
+    'controller' => 1,
+    'action' => 2
+));
+
+$signup->add("/:controller/:action/:params", array(
+    'module' => 'signup',
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3
+));
+
+$router->mount($signup);
+
 return $router;

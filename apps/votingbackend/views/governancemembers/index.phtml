@@ -1,0 +1,68 @@
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Governance members</h4>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-lg-12">
+        <div class="card-box">
+
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-bordered dataTable m-b-0">
+                    <thead>
+                    <tr>
+                        <th>Telegram username</th>
+                        <th>Discord username</th>
+                        <th>Twitter</th>
+                        <th>Masternode address</th>
+                        <th>Masternode ipaddress</th>
+                        <th>Valid signed message</th>
+                        <th>Access</th>
+                        <th>Node active</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach( $governanceMembers as $gm ){ ?>
+                        <tr>
+                            <td><?=$gm->telegram_username?></td>
+                            <td><?=$gm->discord?></td>
+                            <td><?=$gm->twitter_handle?></td>
+                            <td><?=$gm->masternode_address?></td>
+                            <td><?=$gm->masternode_ipaddress_port?></td>
+                            <td>
+                                <button class="btn <?=($gm->checkHash() !== 'error' && $gm->checkHash() !== false) ? 'btn-success' : 'btn-danger'?> waves-effect waves-light btn-sm">
+                                    <?=($gm->checkHash() !== 'error' && $gm->checkHash() !== false) ? 'Yes' : 'No'?>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn <?=($gm->access == 1) ? 'btn-success' : 'btn-danger'?> waves-effect waves-light btn-sm">
+                                    <?=($gm->access == 1) ? 'Yes' : 'No'?>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn <?=(in_array($gm->masternode_address, $nodes)) ? 'btn-success' : 'btn-danger'?> waves-effect waves-light btn-sm">
+                                    <?=(in_array($gm->masternode_address, $nodes)) ? 'Yes' : 'No'?>
+                                </button>
+                            </td>
+                            <td>
+                                <a href="/governancemembers/edit/<?=$gm->id?>" class="btn waves-effect waves-light btn-sm btn-warning"> <i class="fa fa-wrench"></i> </a>
+                                <a href="/governancemembers/delete/<?=$gm->id?>" onclick="return confirm('Are you sure?'); return false" class="btn waves-effect waves-light btn-sm btn-danger"> <i class="fa fa-times"></i> </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </div><!-- end col-->
+
+
+</div>
+<!-- end row -->

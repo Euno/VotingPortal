@@ -1,9 +1,9 @@
 <?php
 namespace EunoVoting\Common\Models;
-
 use EunoVoting\Common\Libraries\jsonRPCClient;
+use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
-class Votes extends \Phalcon\Mvc\Model
+class GovernanceMembers extends \Phalcon\Mvc\Model
 {
     /**
      *
@@ -16,31 +16,38 @@ class Votes extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=11, nullable=false)
+     * @var string
+     * @Column(type="string", length=45, nullable=false)
      */
-    public $voting_id;
+    public $telegram_username;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", nullable=true)
      */
-    public $masternode_ipaddress_port;
+    public $discord;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", nullable=true)
+     */
+    public $twitter_handle;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=45, nullable=false)
      */
     public $masternode_address;
 
     /**
      *
      * @var string
-     * @Column(type="string", length=255, nullable=false)
+     * @Column(type="string", nullable=false)
      */
-    public $answer;
+    public $masternode_ipaddress_port;
 
     /**
      *
@@ -52,46 +59,39 @@ class Votes extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
-     * @Column(type="integer", length=1, nullable=false)
+     * @Column(type="integer", nullable=false)
      */
-    public $anon_vote;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $vote_hash;
+    public $access;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=10, nullable=false)
+     * @Column(type="integer", nullable=false)
      */
     public $date;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=1, nullable=false)
+     * @Column(type="integer", nullable=false)
      */
-    public $confirmed;
+    public $deleted;
 
     /**
      * Returns table name mapped in the model.
      *
      * @return string
      */
-    public function getSource()
+    /*public function getSource()
     {
-        return 'votes';
-    }
+        //return 'governance_members';
+    }*/
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Votes[]
+     * @return Admins[]
      */
     public static function find($parameters = null)
     {
@@ -102,16 +102,25 @@ class Votes extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Votes
+     * @return Admins
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
     }
 
+    public function beforeCreate()
+    {
+        $this->date = time();
+        $this->deleted = 0;
+    }
+
     public function initialize()
     {
-        $this->belongsTo('voting_id', 'EunoVoting\Common\Models\Votings', 'id', ['alias' => 'Voting']);
+        $this->addBehavior(new softDelete([
+            "field" => "deleted",
+            "value" => 1
+        ]));
     }
 
     /**
@@ -125,6 +134,6 @@ class Votes extends \Phalcon\Mvc\Model
         $connect_string = sprintf('http://%s:%s@%s:%s/', $config->eunod->user, $config->eunod->pass, $config->eunod->host, $config->eunod->port);
         $coind = new jsonRPCClient($connect_string);
 
-        return $coind->verifymessage($this->masternode_address, $this->signed_msg, $this->answer);
+        return $coind->verifymessage($this->masternode_address, $this->signed_msg, $this->telegram_username);
     }
 }
