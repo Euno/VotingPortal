@@ -92,16 +92,17 @@ class VoteController extends Controller
                 $voteModel->confirmed = 0;
                 $voteModel->create();
 
+                if(isset($post['vote_anon']) && $post['vote_anon'] == 1)
+                {
+                    $voteModel->anon_vote = 1;
+                    $voteModel->masternode_address = '';
+                    $voteModel->masternode_ipaddress_port = '';
+                    $voteModel->update();
+                }
+
                 if($voteModel->checkHash() !== 'error' && $voteModel->checkHash() !== false)
                 {
                     $voteModel->confirmed = 1;
-
-                    if(isset($post['vote_anon']))
-                    {
-                        $voteModel->anon_vote = 1;
-                        $voteModel->masternode_address = '';
-                        $voteModel->masternode_ipaddress_port = '';
-                    }
 
                     $voteModel->update();
                 }
