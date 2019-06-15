@@ -1,6 +1,6 @@
 {
     "require": {
-        "mpdf/mpdf": "7.1.0",
+        "mpdf/mpdf": "7.1.4",
         "phalcon/incubator": "^3.0",
         "ext-bcmath": "*"
     }

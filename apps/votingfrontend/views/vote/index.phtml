@@ -10,7 +10,7 @@
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
         <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
-        <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css?v=<?=time()?>" />
         <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -148,8 +148,12 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-3 text-center">
-                        <button class="btn btn-primary btn-block proceedVoteNextBtn">Submit Vote(s)</button>
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <input type="hidden" name="vote_anon" value="0" />
+                            <button class="btn btn-primary proceedVoteNextBtn">Submit Vote(s)</button>
+                            <button class="btn btn-success proceedVoteNextBtn private">Submit Vote(s) Anonymously</button>
+                        </div>
                         <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above submitted votes are correct. Submit the votes now!</button>
                     </div>
                 </div>
@@ -164,7 +168,7 @@
 
         </script>
 
-        <script src="/assets/frontend/js/main.js"></script>
-        <script src="/assets/frontend/js/countdown.js"></script>
+        <script src="/assets/frontend/js/main.js?v=<?=time()?>"></script>
+        <script src="/assets/frontend/js/countdown.js?v=<?=time()?>"></script>
     </body>
 </html>

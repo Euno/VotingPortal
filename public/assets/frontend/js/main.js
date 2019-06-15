@@ -35,7 +35,16 @@ $(function(){
     $('.proceedVoteNextBtn').on('click', function(e){
         e.preventDefault();
 
-        $(this).hide();
+        if($(this).hasClass('private'))
+        {
+            $('input[name="vote_anon"]').val(1);
+        }
+        else
+        {
+            $('input[name="vote_anon"]').val(0);
+        }
+
+        $('.proceedVoteNextBtn').hide();
         $('.proceedVote').show();
     });
 

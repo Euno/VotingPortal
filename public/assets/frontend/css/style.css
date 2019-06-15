@@ -61,7 +61,11 @@ body{
     background-image: none;
     color: #FFF;
     margin-top: 30px;
-    border-radius: 20px;
+}
+
+#votingportal .proceedVoteNextBtn.private{
+    background-color: #562CDD;
+    border-color: #562CDD;
 }
 
 #votingportal input{
