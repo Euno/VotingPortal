@@ -28,7 +28,9 @@ return new \Phalcon\Config([
         'backendBaseUri' => 'https://dev-adminvoting.euno.co/',
         'backendModuleHost' => 'dev-adminvoting.euno.co',
         'signupBaseUri' => 'https://dev-signup.euno.co/',
-        'signupModuleHost' => 'dev-signup.euno.co'
+        'signupModuleHost' => 'dev-signup.euno.co',
+        'apiBaseUri' => 'https://dev-api.euno.co/',
+        'apiModuleHost' => 'dev-api.euno.co'
     ],
     'env' => 'dev',
     'eunod' => [
