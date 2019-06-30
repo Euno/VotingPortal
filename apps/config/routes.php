@@ -115,4 +115,41 @@ $signup->add("/:controller/:action/:params", array(
 
 $router->mount($signup);
 
+/*
+ * API
+ */
+$api = new RouterGroup(
+    [
+        "module"     => "api"
+    ]
+);
+
+$api->setHostName($config->application->apiModuleHost);
+
+$api->add("/", array(
+    'module' => 'api',
+    'controller' => 'index',
+    'action' => 'index'
+));
+
+$api->add("/:controller", array(
+    'module' => 'api',
+    'controller' => 1
+));
+
+$api->add("/:controller/:action", array(
+    'module' => 'api',
+    'controller' => 1,
+    'action' => 2
+));
+
+$api->add("/:controller/:action/:params", array(
+    'module' => 'api',
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3
+));
+
+$router->mount($api);
+
 return $router;

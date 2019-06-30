@@ -49,6 +49,10 @@ try {
             'signup' => array(
                 'className' => 'EunoVoting\Signup\Module',
                 'path' => '../apps/signup/Module.php',
+            ),
+            'api' => array(
+                'className' => 'EunoVoting\Api\Module',
+                'path' => '../apps/api/Module.php',
             )
         )
     );
@@ -73,33 +77,3 @@ try {
     //header('Location: /index/notFound');
     exit;
 }
-
-/*use Phalcon\Di\FactoryDefault;
-
-error_reporting(E_ALL);
-ini_set("memory_limit","512M");
-
-define('BASE_PATH', dirname(__DIR__));
-define('APP_PATH', BASE_PATH . '/app');
-define('PROJECT_PATH', __DIR__ . '/../');
-
-try {
-
-    $di = new FactoryDefault();
-
-    include APP_PATH . "/config/services.php";
-
-    $config = $di->getConfig();
-
-    include APP_PATH . '/config/loader.php';
-
-    require BASE_PATH . "/vendor/autoload.php";
-
-    $application = new \Phalcon\Mvc\Application($di);
-
-    echo $application->handle()->getContent();
-
-} catch (\Exception $e) {
-    echo $e->getMessage() . '<br>';
-    echo '<pre>' . $e->getTraceAsString() . '</pre>';
-}*/
