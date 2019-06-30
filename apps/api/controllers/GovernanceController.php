@@ -22,6 +22,10 @@ class GovernanceController extends Controller
 
     public function membersAction()
     {
+        $core_members = [
+            '@RektME_EUNO', '@Drogert', '@ACryptKeeper', '@EunoNutter', '@ollieblockchain', '@AGangel', '@EUNO1', '@Eugenisinius',
+            '@watoshi', '@supadupadoug', '@PrincessEuna', '@rundoau', '@arrie1992'
+        ];
         $members = GovernanceMembers::find([
             'deleted = 0 OR deleted IS NULL'
         ]);
@@ -57,6 +61,12 @@ class GovernanceController extends Controller
             {
                 $membersList[$member->telegram_username] = in_array($member->masternode_address, $nodes);
             }
+        }
+
+        foreach ($core_members as $core_member)
+        {
+            if(!isset($membersList[$core_member]))
+                $membersList[$core_member] = true;
         }
 
         $response = new Response();

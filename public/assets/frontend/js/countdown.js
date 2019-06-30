@@ -1,6 +1,6 @@
 $(function(){
 
-    var expireDate = new Date((window.votingEndDate - (8*60*60))*1000).getTime();
+    var expireDate = new Date((window.votingEndDate + (8*60*60))*1000).getTime();
 
     function calculateTimeLeft(){
         var now = new Date().getTime();
