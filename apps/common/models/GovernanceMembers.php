@@ -75,6 +75,13 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", nullable=false)
      */
+    public $last_seen;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", nullable=false)
+     */
     public $deleted;
 
     /**
