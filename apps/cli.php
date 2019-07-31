@@ -32,8 +32,8 @@ $loader->registerDirs(
 $loader->register();
 
 $loader->registerNamespaces([
-    'EunoVoting\Common\Models' => 'apps/common/models/',
-    'EunoVoting\Common\Libraries' => 'apps/common/libraries/',
+    'EunoVoting\Common\Models' => APPLICATION_PATH.'/common/models/',
+    'EunoVoting\Common\Libraries' => APPLICATION_PATH.'/common/libraries/',
 ])->register();
 
 $application_env = getenv ( 'APPLICATION_ENV' );
