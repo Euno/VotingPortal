@@ -139,11 +139,22 @@ class GovernanceController extends Controller
             }
         }
 
+        $membersListResponse = [];
+        foreach ($membersList as $member => $data)
+        {
+            $membersListResponse[] = [
+                "member" => $member,
+                "status" => $data['status'],
+                "last_seen_unix" => (int)$data['last_seen'],
+                "last_seen_hours" => ($data['last_seen'] ? ( round((time() - $data['last_seen']) / 3600, 2)) : null),
+            ];
+        }
+
         $response = new Response();
         $response->setContentType('application/json', 'UTF-8');
         $response->setContent(json_encode([
             "status" => ($members->count() > 0 ? true : false),
-            "members" => $membersList
+            "members" => $membersListResponse
         ]));
 
         return $response;
