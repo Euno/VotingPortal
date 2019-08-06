@@ -146,6 +146,7 @@ class GovernanceController extends Controller
                 "member" => $member,
                 "status" => $data['status'],
                 "last_seen_unix" => (int)$data['last_seen'],
+                "last_seen_date" => date("Y-m-d h:iA", $data['last_seen'])." Europe/Amsterdam",
                 "last_seen_hours" => ($data['last_seen'] ? ( round((time() - $data['last_seen']) / 3600, 2)) : null),
             ];
         }
