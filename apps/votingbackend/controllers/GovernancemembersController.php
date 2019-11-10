@@ -16,9 +16,15 @@ class GovernancemembersController extends ControllerBase
             $nodes = json_decode($nodesFetch, true);
         }
 
+        $nodesFlat = [];
+        foreach ($nodes as $n)
+        {
+            $nodesFlat[] = $n['address'];
+        }
+
         $governanceMembers = GovernanceMembers::find(['deleted = 0']);
 
-        $this->view->nodes = $nodes;
+        $this->view->nodes = $nodesFlat;
         $this->view->governanceMembers = $governanceMembers;
     }
 
