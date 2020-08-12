@@ -53,6 +53,10 @@ try {
             'api' => array(
                 'className' => 'EunoVoting\Api\Module',
                 'path' => '../apps/api/Module.php',
+            ),
+            'swap' => array(
+                'className' => 'EunoVoting\Swap\Module',
+                'path' => '../apps/swap/Module.php',
             )
         )
     );

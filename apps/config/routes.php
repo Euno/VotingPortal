@@ -152,4 +152,41 @@ $api->add("/:controller/:action/:params", array(
 
 $router->mount($api);
 
+/*
+ * Swap
+ */
+$swap = new RouterGroup(
+    [
+        "module"     => "swap"
+    ]
+);
+
+$swap->setHostName($config->application->swapModuleHost);
+
+$swap->add("/", array(
+    'module' => 'swap',
+    'controller' => 'swap',
+    'action' => 'index'
+));
+
+$swap->add("/:controller", array(
+    'module' => 'swap',
+    'controller' => 1
+));
+
+$swap->add("/:controller/:action", array(
+    'module' => 'swap',
+    'controller' => 1,
+    'action' => 2
+));
+
+$swap->add("/:controller/:action/:params", array(
+    'module' => 'swap',
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3
+));
+
+$router->mount($swap);
+
 return $router;
