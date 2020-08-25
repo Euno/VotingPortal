@@ -50,6 +50,14 @@ class SwapRequests extends \Phalcon\Mvc\Model
     /**
      *
      * @var integer
+     * @Column(type="integer", length=11, nullable=true)
+     */
+    public $swapped_date;
+
+
+    /**
+     *
+     * @var integer
      * @Column(type="integer", length=1, nullable=false)
      */
     public $deleted;
@@ -92,6 +100,7 @@ class SwapRequests extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        $this->hasOne('swapped_by', 'EunoVoting\Common\Models\Users', 'id', ['alias' => 'User']);
     }
 
     /**

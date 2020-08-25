@@ -1,0 +1,74 @@
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Swap requests</h4>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-lg-12">
+        <div class="card-box">
+
+            <?php if($pending_only === false){ ?>
+                <a class="btn btn-dark" href="/swaps/index/open">
+                    Pending swap requests only
+                </a>
+            <?php }else{ ?>
+                <a class="btn btn-dark" href="/swaps">
+                    All swap requests
+                </a>
+            <?php } ?>
+
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-bordered dataTable m-b-0">
+                    <thead>
+                    <tr>
+                        <th>New address</th>
+                        <th>Immediate address</th>
+                        <th>Status</th>
+                        <th>Date requested</th>
+                        <th>Swapped by</th>
+                        <th>Swap date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach( $swaps as $s ){ ?>
+                        <tr>
+                            <td><?=$s->new_address?></td>
+                            <td><?=$s->immediate_address?></td>
+                            <td>
+                                <button class="btn <?=($s->swapped == 1) ? 'btn-success' : 'btn-warning'?> waves-effect waves-light btn-sm">
+                                    <?=($s->swapped == 1) ? 'Swapped' : 'Pending'?>
+                                </button>
+                            </td>
+                            <td>
+                                <?php echo date('d-m-Y H:i', $s->date) ?>
+                            </td>
+                            <td>
+                                <?php if($s->swapped == 1){ ?>
+                                    <?php echo $s->getUser()->name ?>
+                                <?php }else{ ?>
+                                    -
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php echo date('d-m-Y H:i', $s->swapped_date) ?>
+                            </td>
+                            <td>
+                                <a href="/swaps/view/<?=$s->id?>" class="btn waves-effect waves-light btn-sm btn-warning"> <i class="fa fa-wrench"></i> </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div><!-- end col-->
+
+
+</div>
+<!-- end row -->
