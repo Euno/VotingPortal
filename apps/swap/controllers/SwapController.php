@@ -34,18 +34,38 @@ class SwapController extends Controller
 
             if($resultd !== 'error')
             {
+                $random = new \Phalcon\Security\Random();
+
                 $request = new SwapRequests();
+                $request->uuid = $random->uuid();
                 $request->new_address = $post['new_address'];
                 $request->immediate_address = $resultd;
+                $request->notify_address = $post['notify_address'];
                 $request->create();
 
-                echo "Your immediate address is: ".$resultd;
+                $this->response->redirect('swap/result/'.$request->uuid);
             }
         }
     }
 
-    public function resultAction()
+    public function resultAction( $uuid = '' )
     {
+        if(!$uuid)
+            $this->response->redirect('swap');
 
+        $swap = SwapRequests::findFirst([
+            'uuid = :uuid:',
+            'bind' => [
+                'uuid' => $uuid
+            ]
+        ]);
+
+        if(!$swap)
+            $this->response->redirect('swap');
+
+        $call = file_get_contents("https://explorer.euno.co/ext/getbalance/".$swap->immediate_address);
+
+        $this->view->swap = $swap;
+        $this->view->link = $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";;
     }
 }

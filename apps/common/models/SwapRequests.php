@@ -17,6 +17,13 @@ class SwapRequests extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=255, nullable=false)
      */
+    public $uuid;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=false)
+     */
     public $new_address;
 
     /**
@@ -25,6 +32,13 @@ class SwapRequests extends \Phalcon\Mvc\Model
      * @Column(type="string", length=255, nullable=false)
      */
     public $immediate_address;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $notify_address;
 
     /**
      *
