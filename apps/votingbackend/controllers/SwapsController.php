@@ -29,7 +29,7 @@ class SwapsController extends ControllerBase
         if(!$swap)
             $this->response->redirect('swaps');
 
-        $call = file_get_contents("https://explorer.euno.co/ext/getbalance/".$swap->immediate_address);
+        $call = file_get_contents("https://explorerold.euno.co/ext/getbalance/".$swap->immediate_address);
 
         $this->view->swap = $swap;
         $this->view->balance = ctype_digit($call) ? $call : json_decode($call);
