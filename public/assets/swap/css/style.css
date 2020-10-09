@@ -198,36 +198,3 @@ body{
 .signup-note-modal a, .signup-note-modal a:hover{
     color: #FFF;
 }
-
-.swapResult{
-    color: #fff;
-    text-align: center;
-    margin-top: 50px;
-}
-
-.swapResult .block{
-    background-color: #1b1f5a;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.swapResult .immediate_address{
-    font-size: 18px;
-}
-
-.swapResult .new_address{
-    font-size: 18px;
-}
-
-.swapResult .pending{
-    color: #be7500;
-}
-
-.swapResult .swapped{
-    color: #27e300;
-}
-
-.swapResult .url{
-    font-size: 18px;
-    color: #7cff9c
-}

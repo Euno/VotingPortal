@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Euno Governance Voting Portal - Your Swap Request</title>
+    <meta name="author" content="@arrie1992">
+
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css?v=<?= time() ?>"/>
+    <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css"/>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
+</head>
+<body id="votingportal">
+
+    <div class="mobileDeviceModal">
+        <div class="textblock text-center">
+            The votingportal does currently not support mobile devices. Please use this portal with a desktop computer
+            or laptop!
+        </div>
+    </div>
+
+    <div class="container voting-container">
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <img
+                    src="/assets/images/votingportal/euno-logo-new.png"
+                    alt="EUNO logo"
+                    class="logo"
+                />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+
+                <h3
+                    style="color: #FFF;"
+                >
+                    Your Swap Request
+                </h3>
+
+            </div>
+        </div>
+
+        <div class="votes">
+            <div class="voteRow swapResult">
+                <div class="row">
+
+                    <div class="block">
+                        <p>Your immediate address is:</p>
+
+                        <p class="immediate_address">
+                            <?php echo $swap->immediate_address; ?>
+                        </p>
+
+                        <p>
+                            You can send your EUNO coins to this immediate address.
+                        </p>
+                    </div>
+
+                    <div class="block">
+
+                        <p>
+                            The swapped coins will be send to the following address:
+                        </p>
+
+                        <p class="new_address">
+                            <?php echo $swap->new_address; ?>
+                        </p>
+                    </div>
+
+
+
+                    <div class="block">
+                        <p>
+                            Save the following URL to track the swap progression status!
+                        </p>
+
+                        <p class="url">
+                            <?php echo $link ?>
+                        </p>
+                    </div>
+
+
+                    <div class="block">
+                        <p>
+                            The current swap status:
+                            <?php if($swap->swapped == 1){ ?>
+                                <span class="swapped">
+                                SWAPPED
+                            </span>
+                            <?php }else{ ?>
+                                <span class="pending">
+                                PENDING
+                            </span>
+                            <?php } ?>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

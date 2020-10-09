@@ -30,7 +30,9 @@ return new \Phalcon\Config([
         'signupBaseUri' => 'https://signup.euno.co/',
         'signupModuleHost' => 'signup.euno.co',
         'apiBaseUri' => 'https://api.euno.co/',
-        'apiModuleHost' => 'api.euno.co'
+        'apiModuleHost' => 'api.euno.co',
+        'swapBaseUri' => 'https://swap.euno.co/',
+        'swapModuleHost' => 'swap.euno.co',
     ],
     'env' => 'production',
     'eunod' => [

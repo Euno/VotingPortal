@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Euno Governance Voting Portal - Swap Request Form</title>
+        <meta name="author" content="@arrie1992">
+
+        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css?v=<?=time()?>" />
+        <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
+    </head>
+    <body id="votingportal">
+
+        <div class="mobileDeviceModal">
+            <div class="textblock text-center">
+                The votingportal does currently not support mobile devices. Please use this portal with a desktop computer
+                or laptop!
+            </div>
+        </div>
+
+        <div class="container voting-container">
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <img
+                            src="/assets/images/votingportal/euno-logo-new.png"
+                            alt="EUNO logo"
+                            class="logo"
+                    />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+
+                    <h3
+                        style="color: #FFF;"
+                    >
+                        Swap Request Form
+                    </h3>
+
+                </div>
+            </div>
+
+            <form action="/swap/doSwap" method="post">
+
+                <div class="votes">
+                    <div class="voteRow">
+                        <div class="row">
+
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>New EUNO address</label>
+                                            <input
+                                                    type="text"
+                                                    name="new_address"
+                                                    class="form-control address"
+                                                    placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Notify me when swap has been performed (optional)</label>
+                                            <input
+                                                    type="text"
+                                                    name="notify_address"
+                                                    class="form-control address"
+                                                    placeholder="john@doe.com or @telegram_username"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-primary proceedVoteNextBtn">Request Swap</button>
+                        </div>
+                        <button class="btn btn-primary btn-block proceedVote" style="display: none;">
+                            I am sure that I've provided a valid new EUNO address!
+                            Create a immediate address now!
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <script src="/assets/swap/js/swap.js?v=<?=time()?>"></script>
+    </body>
+</html>
