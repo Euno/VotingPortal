@@ -11,7 +11,7 @@ class SwapController extends Controller
     public function indexAction($url = '')
     {
         if(getenv('ENVIRONMENT') === 'production' && time() < 1602529200) //12-10-2020 19:00 GMT
-            exit('Swap form will be open on the 12th of October!');
+            exit('Swap form will be open on the 12th of October at 12-10-2020 19:00 GMT!');
 
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
