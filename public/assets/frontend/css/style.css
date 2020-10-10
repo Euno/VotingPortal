@@ -199,6 +199,12 @@ body{
     color: #FFF;
 }
 
+.swap-warning{
+    background-color: #ffb645;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
 .swapResult{
     color: #fff;
     text-align: center;
