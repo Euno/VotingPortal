@@ -11,11 +11,16 @@ class SwapsController extends ControllerBase
     {
         if($pending_only !== false)
         {
-            $swaps = SwapRequests::find('swapped = 0');
+            $swaps = SwapRequests::find([
+                'swapped = 0',
+                'order' => 'date ASC'
+            ]);
         }
         else
         {
-            $swaps = SwapRequests::find();
+            $swaps = SwapRequests::find([
+                'order' => 'date ASC'
+            ]);
         }
 
         $this->view->swaps = $swaps;
