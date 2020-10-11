@@ -10,8 +10,11 @@ class SwapController extends Controller
 {
     public function indexAction($url = '')
     {
-        if(getenv('ENVIRONMENT') === 'production' && time() < 1602529200) //12-10-2020 19:00 GMT
-            exit('Swap form will be open on the 12th of October at 12-10-2020 19:00 GMT!');
+        if(
+            getenv('ENVIRONMENT') === 'production' &&
+            time() < 1602529200 //12-10-2020 19:00 GMT
+        )
+            exit('Swap form will be open on the 12th of October at 19:00 GMT!');
 
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
@@ -66,8 +69,9 @@ class SwapController extends Controller
         if(!$swap)
             $this->response->redirect('swap');
 
-        $call = file_get_contents("https://explorer.euno.co/ext/getbalance/".$swap->immediate_address);
+        $balance = file_get_contents("https://explorer.euno.co/ext/getbalance/".$swap->immediate_address);
 
+        $this->view->balance = ctype_digit($balance) ? $balance : json_decode($balance);
         $this->view->swap = $swap;
         $this->view->link = $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";;
     }
