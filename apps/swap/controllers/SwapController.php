@@ -80,7 +80,7 @@ class SwapController extends Controller
         if(!$swap)
             $this->response->redirect('swap');
 
-        $balance = file_get_contents("https://explorer.euno.co/ext/getbalance/".$swap->immediate_address);
+        $balance = file_get_contents("https://explorerold.euno.co/ext/getbalance/".$swap->immediate_address);
 
         $this->view->balance = ctype_digit($balance) ? $balance : json_decode($balance);
         $this->view->swap = $swap;
