@@ -80,9 +80,9 @@ class SwapController extends Controller
         if(!$swap)
             $this->response->redirect('swap');
 
-        $balance = file_get_contents("https://explorerold.euno.co/ext/getbalance/".$swap->immediate_address);
+        //$balance = file_get_contents("https://explorerold.euno.co/ext/getbalance/".$swap->immediate_address);
 
-        $this->view->balance = ctype_digit($balance) ? $balance : json_decode($balance);
+        //$this->view->balance = ctype_digit($balance) ? $balance : json_decode($balance);
         $this->view->swap = $swap;
         $this->view->link = $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";;
     }
