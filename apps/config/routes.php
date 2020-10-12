@@ -187,6 +187,12 @@ $swap->add("/:controller/:action/:params", array(
     'params' => 3
 ));
 
+$swap->add("/governance", array(
+    'module' => 'swap',
+    'controller' => 'swap',
+    'action' => 'index'
+));
+
 $router->mount($swap);
 
 return $router;

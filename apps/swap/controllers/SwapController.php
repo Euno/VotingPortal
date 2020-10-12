@@ -8,11 +8,22 @@ use Phalcon\Mvc\Controller;
 
 class SwapController extends Controller
 {
-    public function indexAction($url = '')
+    public function indexAction()
     {
+        $uri = $_SERVER['REQUEST_URI'];
+
+        if($uri === '/governance')
+        {
+            $open = 1602525600;
+        }
+        else
+        {
+            $open = 1602529200;
+        }
+
         if(
-            getenv('ENVIRONMENT') === 'production' &&
-            time() < 1602529200 //12-10-2020 19:00 GMT
+            getenv('ENVIRONMENT') !== 'production' &&
+            time() < $open
         )
             exit('Swap form will be open on the 12th of October at 19:00 GMT!');
 
