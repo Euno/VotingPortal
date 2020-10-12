@@ -61,6 +61,14 @@
                         <h4 class="header-title m-t-0 m-b-30">Process swap</h4>
 
                         <div class="form-group row">
+                            <div class="col-sm-3"><strong>Swap TxID</strong></div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="swap_txid" value="<?php echo $swap->swap_txid ?>" />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-sm-3">Coins are swapped</label>
                             <div class="col-sm-9">
                                 <div class="checkbox checkbox-primary">
@@ -76,7 +84,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save swap</button>
-                    <a href="/admins" class="btn btn-secondary">Cancel</a>
+                    <a href="/swaps" class="btn btn-secondary">Cancel</a>
 
                 </div>
 

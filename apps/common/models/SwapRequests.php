@@ -68,6 +68,12 @@ class SwapRequests extends \Phalcon\Mvc\Model
      */
     public $swapped_date;
 
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=true)
+     */
+    public $swap_txid;
 
     /**
      *
@@ -125,6 +131,7 @@ class SwapRequests extends \Phalcon\Mvc\Model
         $this->date = time();
         $this->swapped = 0;
         $this->swapped_by = 0;
+        $this->swap_txid = '';
         $this->deleted = 0;
     }
 }
