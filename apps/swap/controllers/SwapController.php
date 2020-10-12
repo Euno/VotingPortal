@@ -22,7 +22,7 @@ class SwapController extends Controller
         }
 
         if(
-            getenv('ENVIRONMENT') !== 'production' &&
+            getenv('ENVIRONMENT') === 'production' &&
             time() < $open
         )
             exit('Swap form will be open on the 12th of October at 19:00 GMT!');
