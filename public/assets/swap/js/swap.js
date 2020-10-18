@@ -7,11 +7,11 @@ $(function(){
     });
 
     $('input[name="new_address"]').on('keyup', function(){
-        checkSubmitReady();
+        //checkSubmitReady();
     });
 
     function initEvents(){
-        checkSubmitReady();
+        //checkSubmitReady();
     }
     initEvents();
 
