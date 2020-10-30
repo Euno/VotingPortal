@@ -47,13 +47,6 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $masternode_ipaddress_port;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
     public $signed_msg;
 
     /**
@@ -83,16 +76,6 @@ class GovernanceMembers extends \Phalcon\Mvc\Model
      * @Column(type="integer", nullable=false)
      */
     public $deleted;
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    /*public function getSource()
-    {
-        //return 'governance_members';
-    }*/
 
     /**
      * Allows to query a set of records that match the specified conditions
