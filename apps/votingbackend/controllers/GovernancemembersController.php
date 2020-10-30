@@ -11,15 +11,25 @@ class GovernancemembersController extends ControllerBase
         $nodesFetch = file_get_contents('https://explorer.euno.co/api/getmasternodes');
 
         $nodes = [];
-        if($nodesFetch)
+        if(!isset($nodesFetch['result']) || !$nodesFetch['result'])
         {
             $nodes = json_decode($nodesFetch, true);
+            $nodes = $nodes['result'];
         }
+        else
+        {
+            exit('Explorer down...');
+        }
+
+        $nodes = array_filter($nodes, function($n){
+            if($n['status'] === 'ENABLED')
+                return $n;
+        });
 
         $nodesFlat = [];
         foreach ($nodes as $n)
         {
-            $nodesFlat[] = $n['address'];
+            $nodesFlat[] = $n['addr'];
         }
 
         $governanceMembers = GovernanceMembers::find(['deleted = 0']);

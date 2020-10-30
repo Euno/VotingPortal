@@ -18,7 +18,6 @@
                         <th>Discord username</th>
                         <th>Twitter</th>
                         <th>Masternode address</th>
-                        <th>Masternode ipaddress</th>
                         <th>Valid signed message</th>
                         <th>Access</th>
                         <th>Node active</th>
@@ -32,7 +31,6 @@
                             <td><?=$gm->discord?></td>
                             <td><?=$gm->twitter_handle?></td>
                             <td><?=$gm->masternode_address?></td>
-                            <td><?=$gm->masternode_ipaddress_port?></td>
                             <td>
                                 <button class="btn <?=($gm->checkHash() !== 'error' && $gm->checkHash() !== false) ? 'btn-success' : 'btn-danger'?> waves-effect waves-light btn-sm">
                                     <?=($gm->checkHash() !== 'error' && $gm->checkHash() !== false) ? 'Yes' : 'No'?>

@@ -2,7 +2,7 @@ $(function(){
 
     var nodes = window.nodes;
     var sigErrors = [];
-    $('.ipSelect').select2();
+    $('.addressSelect').select2();
 
 
     $('.proceedVoteNextBtn').on('click', function(e){
@@ -23,14 +23,7 @@ $(function(){
                 checkSubmitReady();
             });
 
-            voteRow.find('.ipSelect').on('change', function () {
-                var val = $(this).val();
-
-                voteRow.find('input.address').val(nodes[val]).change();
-                checkSubmitReady();
-            });
-
-            voteRow.find('textarea, input.address').off('change').on('change', function () {
+            voteRow.find('textarea, select.address').off('change').on('change', function () {
                 checkSignedMessage(voteRow);
                 checkSubmitReady();
             });
@@ -42,7 +35,7 @@ $(function(){
 
     function checkSignedMessage(voteRow){
         var val = voteRow.find('textarea').val();
-        var address = voteRow.find('input.address').val();
+        var address = voteRow.find('select.addressSelect').val();
         var telegram_username = voteRow.find('input.telegram_username').val();
 
         if($.trim(val) && $.trim(address) && $.trim(telegram_username)) {

@@ -16,7 +16,7 @@ class SignupController extends Controller
         $connect_string = sprintf('http://%s:%s@%s:%s/', $this->config->eunod->user, $this->config->eunod->pass, $this->config->eunod->host, $this->config->eunod->port);
         $coind = new jsonRPCClient($connect_string);
 
-        $resultd = $coind->masternode('list', 'pubkey');
+        $resultd = $coind->listmasternodes();
 
         if($resultd !== false && $resultd !== 'error')
         {
@@ -24,13 +24,13 @@ class SignupController extends Controller
         }
         else
         {
-            $nodes = file_get_contents('https://explorer.euno.co/api/getmasternodes');
-
-            if(!$nodes)
-            {
-                $nodes = [];
-            }
+            exit('Error while loading all available masternodes');
         }
+
+        $nodes = array_filter($nodes, function($n){
+            if($n['status'] === 'ENABLED')
+                return $n;
+        });
 
         $this->view->nodes = $nodes;
     }
