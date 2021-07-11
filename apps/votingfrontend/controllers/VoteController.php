@@ -47,7 +47,7 @@ class VoteController extends Controller
             {
                 if(in_array($node['addr'], $used_addresses_flat))
                 {
-                    unset($nodes[$k]);
+                    unset($nodes['result'][$k]);
                 }
             }
         }
