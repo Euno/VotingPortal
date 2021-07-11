@@ -65,11 +65,11 @@ class VoteController extends Controller
 
             $votes = [];
 
-            foreach ($post['masternode_ipaddress_port'] as $k => $masternode_ipaddress_port)
+            foreach ($post['masternode_address'] as $k => $masternode_address)
             {
                 $votes[] = [
-                    'masternode_ipaddress_port' => $masternode_ipaddress_port,
-                    'masternode_address' => $post['masternode_address'][$k],
+                    //'masternode_ipaddress_port' => $masternode_ipaddress_port,
+                    'masternode_address' => $masternode_address,
                     'signed_msg' => $post['signed_msg'][$k],
                 ];
             }
@@ -78,7 +78,7 @@ class VoteController extends Controller
 
             foreach ($votes as $vote)
             {
-                $voteHash = sha1($vote['masternode_ipaddress_port'].$vote['masternode_address']);
+                $voteHash = sha1(time().$vote['masternode_address']);
 
                 if(Votes::findFirst('voting_id = '.$voting->id.' AND vote_hash = "'.$voteHash.'" AND confirmed IN (0, 1)'))
                     continue;
@@ -86,7 +86,7 @@ class VoteController extends Controller
                 $voteModel = new Votes();
                 $voteModel->voting_id = $voting->id;
                 $voteModel->answer = $post['answer'];
-                $voteModel->masternode_ipaddress_port = $vote['masternode_ipaddress_port'];
+                //$voteModel->masternode_ipaddress_port = $vote['masternode_ipaddress_port'];
                 $voteModel->masternode_address = $vote['masternode_address'];
                 $voteModel->signed_msg = $vote['signed_msg'];
                 $voteModel->date = time();
@@ -110,7 +110,7 @@ class VoteController extends Controller
                 {
                     $voteModel->anon_vote = 1;
                     $voteModel->masternode_address = '';
-                    $voteModel->masternode_ipaddress_port = '';
+                    //$voteModel->masternode_ipaddress_port = '';
                     $voteModel->update();
                 }
             }
