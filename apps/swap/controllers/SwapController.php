@@ -8,6 +8,11 @@ use Phalcon\Mvc\Controller;
 
 class SwapController extends Controller
 {
+    public function initialize()
+    {
+        exit('Swap has ended on 11/12/2020 11:30AM UTC');
+    }
+
     public function indexAction()
     {
         $uri = $_SERVER['REQUEST_URI'];

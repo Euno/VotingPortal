@@ -40,11 +40,14 @@ class VoteController extends Controller
         {
             $nodes = json_decode($nodes, true);
 
-            foreach ($nodes as $ip => $address)
+            if(!isset($nodes['result']))
+                exit('Error fetching the active nodes');
+
+            foreach ($nodes['result'] as $k => $node)
             {
-                if(in_array($address, $used_addresses_flat))
+                if(in_array($node['addr'], $used_addresses_flat))
                 {
-                    unset($nodes[$ip]);
+                    unset($nodes[$k]);
                 }
             }
         }

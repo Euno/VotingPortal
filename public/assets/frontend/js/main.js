@@ -12,7 +12,7 @@ $(function(){
     var sigErrors = [];
     var foundDoubleAddress = false;
 
-    $('.ipSelect').select2();
+    $('.addressSelect').select2();
 
     $('.addVote').on('click', function(e){
         e.preventDefault();
@@ -61,14 +61,7 @@ $(function(){
         $('.voteRow').each(function(){
             var voteRow = $(this);
 
-            voteRow.find('.ipSelect').on('change', function () {
-                var val = $(this).val();
-
-                voteRow.find('input.address').val(nodes[val]).change();
-                checkSubmitReady();
-            });
-
-            voteRow.find('textarea, input.address').off('change').on('change', function () {
+            voteRow.find('textarea, select.addressSelect').off('change').on('change', function () {
                 checkSignedMessage(voteRow);
                 checkSubmitReady();
             });
@@ -77,6 +70,8 @@ $(function(){
                 voteRow.remove();
                 initEvents();
             });
+
+            voteRow.find('select.addressSelect').select2();
         });
 
         if( $('.voteRow').length > 1 ) {
@@ -113,7 +108,7 @@ $(function(){
 
     function checkSignedMessage(voteRow){
         var val = voteRow.find('textarea').val();
-        var address = voteRow.find('input.address').val();
+        var address = voteRow.find('select.addressSelect').val();
         var answer = $('select[name="answer"]').val();
 
         if($.trim(val) && $.trim(address) && $.trim(answer)) {
@@ -179,7 +174,7 @@ $(function(){
         foundDoubleAddress = false;
 
         $('.voteRow').each(function(){
-            var address = $(this).find('input.address').val();
+            var address = $(this).find('select.addressSelect').val();
             if(address){
 
                 if(chosenAddresses.indexOf(address) !== -1){
