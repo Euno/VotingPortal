@@ -1,79 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Euno Governance Voting Portal - <?=$voting->title?></title>
-        <meta name="author" content="@arrie1992">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Euno Governance Voting Portal - <?=$voting->title?></title>
+    <meta name="author" content="@arrie1992">
 
-        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
-        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
-        <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
-        <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css?v=<?=time()?>" />
-        <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-theme.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/frontend/css/style.css?v=<?=time()?>" />
+    <link type="text/css" rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css" />
 
-        <script src="/assets/js/jquery.min.js"></script>
-        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
-    </head>
-    <body id="votingportal">
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
+</head>
+<body id="votingportal">
 
-        <div class="mobileDeviceModal">
-            <div class="textblock text-center">
-                The votingportal does currently not support mobile devices. Please use this portal with a desktop computer
-                or laptop!
+<div class="mobileDeviceModal">
+    <div class="textblock text-center">
+        The votingportal does currently not support mobile devices. Please use this portal with a desktop computer
+        or laptop!
+    </div>
+</div>
+
+<div class="container voting-container">
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <img src="/assets/images/votingportal/voting-portal-euno-logo-1.png" alt="EUNO logo" class="logo" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <img src="/assets/images/votingportal/voting-portal-subtitle.png" alt="EUNO voting portal subtitle" class="subtitle" />
+        </div>
+    </div>
+
+    <form action="/vote/doVote/<?=$voting->url?>" method="post">
+
+        <?php if($voting->description){ ?>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <blockquote><?=$voting->description?></blockquote>
+                </div>
+            </div>
+        <?php } ?>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <h1 class="voteTitle"><?=$voting->title?></h1>
             </div>
         </div>
 
-        <div class="container voting-container">
-
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 text-center">
-                    <img src="/assets/images/votingportal/voting-portal-euno-logo-1.png" alt="EUNO logo" class="logo" />
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="form-group">
+                    <label for="answer">Your Vote <span style="font-size: 12px;">( Please copy your vote from the dropdown menu and paste as your answer when you sign the message )</span></label>
+                    <select name="answer" id="answer" class="form-control answersSelect">
+                        <?php foreach ($answers as $answer){ ?>
+                            <option value="<?=$answer->answer?>"><?=$answer->answer?></option>
+                        <?php } ?>
+                    </select>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 text-center">
-                    <img src="/assets/images/votingportal/voting-portal-subtitle.png" alt="EUNO voting portal subtitle" class="subtitle" />
-                </div>
-            </div>
-
-            <form action="/vote/doVote/<?=$voting->url?>" method="post">
-
-                <?php if($voting->description){ ?>
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <blockquote><?=$voting->description?></blockquote>
-                    </div>
-                </div>
-                <?php } ?>
-
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <h1 class="voteTitle"><?=$voting->title?></h1>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="form-group">
-                            <label for="answer">Your Vote <span style="font-size: 12px;">( Please copy your vote from the dropdown menu and paste as your answer when you sign the message )</span></label>
-                            <select name="answer" id="answer" class="form-control answersSelect">
-                                <?php foreach ($answers as $answer){ ?>
-                                    <option value="<?=$answer->answer?>"><?=$answer->answer?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <p class="clipboard">
-                            <a href="javascript:void(0)">Copy vote to clipboard</a> -
-                            <a href="/files/tutorials/Voting_Tutorial.pdf" target="_blank">Read voting tutorial</a> -
-                            <span id="votingCountdown">
+                <p class="clipboard">
+                    <a href="javascript:void(0)">Copy vote to clipboard</a> -
+                    <a href="/files/tutorials/Voting_Tutorial.pdf" target="_blank">Read voting tutorial</a> -
+                    <span id="votingCountdown">
                                 Voting will expire in: <span></span>
                             </span>
-                        </p>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </div>
+
+        <div class="votes">
+            <div class="voteRow">
+                <div class="row">
+
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Select your Masternode</label>
+                                    <div class="pull-right hidden-md hidden-lg">
+                                        <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                    <select name="masternode_address[]" class="form-control addressSelect">
+                                        <option value="">- Select your node -</option>
+                                        <?php foreach ($nodes['result'] as $node){ ?>
+                                            <option value="<?=$node['addr']?>"><?=$node['addr']?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <!--<div class="form-group">
+                                    <label>Masternode Address</label>
+                                    <input type="text" name="masternode_address[]" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
+                                </div>-->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Signed Message</label>
+                                    <div class="pull-right hidden-xs hidden-sm">
+                                        <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                    <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
+                                    <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message couldn't be validated and can not be confirmed by the EUNO team. Please re-check your vote!</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -81,94 +130,45 @@
                         <hr />
                     </div>
                 </div>
-
-                <div class="votes">
-                    <div class="voteRow">
-                        <div class="row">
-
-                            <div class="col-md-10 col-md-offset-1">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Masternode IP Address + Port</label>
-                                            <div class="pull-right hidden-md hidden-lg">
-                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                            <select name="masternode_ipaddress_port[]" class="form-control ipSelect">
-                                                <option value="">- Select your node -</option>
-                                                <?php foreach ($nodes as $node => $address){ ?>
-                                                    <option value="<?=$node?>"><?=$node?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Masternode Address</label>
-                                            <input type="text" name="masternode_address[]" class="form-control address" placeholder="E.g. EM2NzhBtYAARToKFeqAtLdX6eardFBbLB4" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Signed Message</label>
-                                            <div class="pull-right hidden-xs hidden-sm">
-                                                <a href="javascript:void(0)" style="color: #FFF;" class="remove-vote">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                            <textarea name="signed_msg[]" class="form-control" rows="5" placeholder="E.g. H5dR8/FSCrnFjNigIj8ks9/hzL2TZ2qXnODI1VcBcRlsGU2Nwlj5PHUn2eRiBK05u0RuL862+1qWeChtyHF7/MM="></textarea>
-                                            <span class="invalidSignedMsgWarning" style="color: red; font-size: 12px; display: none;">Signed message couldn't be validated and can not be confirmed by the EUNO team. Please re-check your vote!</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <hr />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row warning-row" style="display: none;">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="alert alert-warning multipleAddressesWarning" role="alert">
-                            You are trying to vote multiple times with the same address(es).
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <button class="btn btn-primary btn-block addVote">Add Vote</button>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 text-center">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <input type="hidden" name="vote_anon" value="0" />
-                            <button class="btn btn-primary proceedVoteNextBtn">Submit Vote(s)</button>
-                            <button class="btn btn-success proceedVoteNextBtn private">Submit Vote(s) Anonymously</button>
-                        </div>
-                        <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above submitted votes are correct. Submit the votes now!</button>
-                    </div>
-                </div>
-
-            </form>
+            </div>
         </div>
 
-        <script type="application/javascript">
+        <div class="row warning-row" style="display: none;">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="alert alert-warning multipleAddressesWarning" role="alert">
+                    You are trying to vote multiple times with the same address(es).
+                </div>
+            </div>
+        </div>
 
-            window.votingEndDate = <?=$voting->end_date?>;
-            window.nodes = <?=json_encode($nodes)?>;
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <button class="btn btn-primary btn-block addVote">Add Vote</button>
+            </div>
+        </div>
 
-        </script>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="hidden" name="vote_anon" value="0" />
+                    <button class="btn btn-primary proceedVoteNextBtn">Submit Vote(s)</button>
+                    <button class="btn btn-success proceedVoteNextBtn private">Submit Vote(s) Anonymously</button>
+                </div>
+                <button class="btn btn-primary btn-block proceedVote" style="display: none;">I am sure that the above submitted votes are correct. Submit the votes now!</button>
+            </div>
+        </div>
 
-        <script src="/assets/frontend/js/main.js?v=<?=time()?>"></script>
-        <script src="/assets/frontend/js/countdown.js?v=<?=time()?>"></script>
-    </body>
+    </form>
+</div>
+
+<script type="application/javascript">
+
+    window.votingEndDate = <?=$voting->end_date?>;
+    window.nodes = <?=json_encode($nodes)?>;
+
+</script>
+
+<script src="/assets/frontend/js/main.js?v=<?=time()?>"></script>
+<script src="/assets/frontend/js/countdown.js?v=<?=time()?>"></script>
+</body>
 </html>
